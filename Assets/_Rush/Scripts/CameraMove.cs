@@ -1,0 +1,61 @@
+///-----------------------------------------------------------------
+/// Author : Clément VIEILLY
+/// Date : 03/11/2019 13:16
+///-----------------------------------------------------------------
+
+using System;
+using Com.IsartDigital.Rush.Manager;
+using UnityEngine;
+
+namespace Com.IsartDigital.Rush {
+    public class CameraMove : MonoBehaviour
+    {
+        private float radius;
+        private float horizontalAngle = 3;
+        private float verticalAngle = 3;
+        private Vector3 newDirection;
+        [SerializeField] private Transform cameraPivot;
+        [SerializeField, Range(0.5f, 2f)] private float speed;
+
+        private string vertical = "Vertical";
+        private string horizontal = "Horizontal";
+
+        private void Start() {
+            radius = 20;
+            ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held; 
+            ControllerManager.OnKeyDown += ControllerManager_OnKeyDown; 
+        }
+
+        private void ControllerManager_OnKeyDown(float axeX,float axeY) {
+            horizontalAngle += axeX * Time.deltaTime * speed;
+            verticalAngle = Mathf.Clamp(verticalAngle + axeY * Time.deltaTime * speed, -89.9f * Mathf.Deg2Rad, 89.9f * Mathf.Deg2Rad);
+        }
+
+        private void ControllerManager_OnMouseClick1Held(float axeX, float axeY) {
+            horizontalAngle += -axeX * Time.deltaTime * speed;
+            verticalAngle = Mathf.Clamp(verticalAngle - axeY * Time.deltaTime * speed, -89.9f * Mathf.Deg2Rad, 89.9f * Mathf.Deg2Rad);
+
+        }
+
+        
+
+        private void Update() {
+            ChangeDirection();
+
+        }
+        private void ChangeDirection() {
+            newDirection.x = radius * Mathf.Cos(verticalAngle) * Mathf.Cos(horizontalAngle);
+            newDirection.y = radius * Mathf.Sin(verticalAngle);
+            newDirection.z = radius * Mathf.Cos(verticalAngle) * Mathf.Sin(horizontalAngle);
+
+            transform.position = newDirection + cameraPivot.position;
+            transform.LookAt(cameraPivot);
+        }
+
+
+        private void OnDestroy() {
+            ControllerManager.OnMouseClick1Held -= ControllerManager_OnMouseClick1Held;
+            ControllerManager.OnKeyDown -= ControllerManager_OnKeyDown;
+        }
+    }
+}
