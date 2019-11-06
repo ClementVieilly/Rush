@@ -9,55 +9,85 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush {
-	public class Player : MonoBehaviour {
-        public static  List<Inventory> inventory = new List<Inventory>();
+namespace Com.IsartDigital.Rush
+{
+    public class Player : MonoBehaviour
+    {
+        public static List<Inventory> inventory = new List<Inventory>();
         protected GameObject currentTile;
-        protected Transform currentPosition; 
         protected int index = 0;
-       [SerializeField] protected Camera cam;
+        [SerializeField] protected Camera cam;
+        [SerializeField] protected GameObject previewPrefab;
+        private GameObject preview;
         protected bool hitSomething;
-        protected RaycastHit hitInfo; 
-       private void Start () {
-            currentTile = inventory[0].Tile;
-            
-            //currentTile =  Instantiate(currentTile); 
-            //ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down; 
-		}
+        protected bool notFree;
+        protected RaycastHit hitInfo;
+        private bool allListEmpty = false; 
 
-       /* private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
+        public void Init() {
+            preview = Instantiate(previewPrefab);
 
-            if(hitInfo.collider.gameObject.layer == 8) {
-                inventory.Add(hitInfo.collider.gameObject);
-                currentTile = hitInfo.collider.gameObject;
-                currentTile.layer = 2; 
-                return;
-            }
-            currentTile.transform.position = hitInfo.collider.gameObject.transform.position + Vector3.up / 2;
-            inventory.Remove(currentTile); 
-           
-            currentTile.layer = 8;
-           
-            currentTile = null;
-            currentTile = Instantiate(inventory[0]);
-
-             
+            currentTile = inventory[index].TilesList[0];
+            ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
         }
 
-        private void Update () {
+        private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
+
+            if(!hitSomething) return;
+            /*if(hitInfo.collider.gameObject.layer == 8) {
+                currentTile = hitInfo.collider.gameObject;
+                currentTile.layer = 2;
+                
+                return;
+            }*/
+            if(inventory[index].TilesList.Count > 0) {
+                currentTile = Instantiate(currentTile, hitInfo.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
+                currentTile.layer = 8;
+
+                inventory[index].TilesList.RemoveAt(0);
+
+                if(inventory[index].TilesList.Count == 0) {
+                    index++;
+                    index = Mathf.Clamp(index, 0, inventory.Count - 1);
+                    if(inventory[index].TilesList.Count == 0) allListEmpty = true; 
+
+                }
+            }
+            
+              
+
+        }
+
+
+
+        private void Update() {
+            if(allListEmpty) return; 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             hitSomething = Physics.Raycast(ray, out hitInfo, 30);
-            currentTile.layer = 2;
-            if(inventory.Count != 0 && hitSomething) {
-
-                if(hitInfo.collider.gameObject.layer == 8) return; 
-                currentTile.transform.position = hitInfo.collider.gameObject.transform.position + Vector3.up / 2;
-                currentTile.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.green;
-
+            if(!hitSomething) {
+                preview.SetActive(false);
+                return;
             }
 
-        }*/
+            notFree = Physics.Raycast(hitInfo.collider.transform.position, Vector3.up, 10);
+
+            if(!notFree) {
+                for(int i = 0; i < preview.transform.childCount; i++) {
+                    if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
+
+                        preview.transform.GetChild(i).gameObject.SetActive(true);
+                        break;
+                    }
+                }
+                currentTile = inventory[index].TilesList[0];
+                preview.SetActive(true);
+                preview.transform.position = hitInfo.collider.gameObject.transform.position + Vector3.up / 2;
+                preview.transform.rotation = inventory[index].Orientation;
+            }
+            else preview.SetActive(false);
+        }
 
 
-	}
+
+    }
 }

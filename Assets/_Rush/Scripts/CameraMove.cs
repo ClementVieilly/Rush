@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush {
     public class CameraMove : MonoBehaviour
     {
-        private float radius;
+        [SerializeField, Range(0, 20)] private float radius;
         private float horizontalAngle = 3;
         private float verticalAngle = 3;
         private Vector3 newDirection;

@@ -13,14 +13,18 @@ namespace Com.IsartDigital.Rush.Manager {
         public static bool stopTest = false;
         protected TimeManager timeManager;
         [SerializeField] private GameObject level;
+        private Level levelScript;
+        [SerializeField] private Player player;
 
         private void Start() {
-            
+            levelScript = level.GetComponent<Level>(); 
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             timeManager = FindObjectOfType<TimeManager>();
-            CreateLevel(); 
-
+            levelScript.Init();
+            CreateLevel();
+           
+            player.Init(); 
         }
 
         private void CubeMove_OnLoseContext() {
@@ -66,8 +70,9 @@ namespace Com.IsartDigital.Rush.Manager {
 
         protected void CreateLevel() {
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
-            for(int i = 0; i < level.GetComponent<Level>().inventoryLevel.Count; i++) {
-                Player.inventory.Add(level.GetComponent<Level>().inventoryLevel[i]); 
+           
+            for(int i = 0; i < levelScript.inventoryLevel.Count; i++) {
+                Player.inventory.Add(levelScript.inventoryLevel[i]); 
             }
            
         }
