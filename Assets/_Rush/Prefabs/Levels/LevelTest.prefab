@@ -2828,10 +2828,10 @@ MonoBehaviour:
   inventoryLevel:
   - _tile: {fileID: 1820389188126086, guid: 16957ef68a439ee4fb120ba2ffa2519e, type: 3}
     _orientation: 0
-    _count: 2
+    _count: 4
   - _tile: {fileID: 1820389188126086, guid: 16957ef68a439ee4fb120ba2ffa2519e, type: 3}
     _orientation: 180
-    _count: 2
+    _count: 3
 --- !u!1 &7863784000935172293
 GameObject:
   m_ObjectHideFlags: 0

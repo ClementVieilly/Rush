@@ -21,8 +21,9 @@ namespace Com.IsartDigital.Rush
         private GameObject preview;
         protected bool hitSomething;
         protected bool notFree;
-        protected RaycastHit hitInfo;
-        private bool allListEmpty = false; 
+        protected RaycastHit ground;
+        protected RaycastHit tileOnground;
+        private bool allListEmpty = false;
 
         public void Init() {
             preview = Instantiate(previewPrefab);
@@ -34,14 +35,25 @@ namespace Com.IsartDigital.Rush
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
             if(!hitSomething) return;
-            /*if(hitInfo.collider.gameObject.layer == 8) {
-                currentTile = hitInfo.collider.gameObject;
-                currentTile.layer = 2;
-                
-                return;
-            }*/
+
+            if(notFree) {
+                Inventory lInventory;
+                for(int i = 0; i < inventory.Count; i++) {
+                    lInventory = inventory[i];
+                    if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
+                        Destroy(tileOnground.collider.gameObject);
+                        lInventory.TilesList.Add(lInventory.Tile);
+                        CheckTabsCount();
+                        index = inventory.IndexOf(lInventory);
+                        currentTile = lInventory.TilesList[0];
+
+                        
+                        return;
+                    }
+                }
+            }
             if(inventory[index].TilesList.Count > 0) {
-                currentTile = Instantiate(currentTile, hitInfo.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
+                currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
                 currentTile.layer = 8;
 
                 inventory[index].TilesList.RemoveAt(0);
@@ -49,43 +61,49 @@ namespace Com.IsartDigital.Rush
                 if(inventory[index].TilesList.Count == 0) {
                     index++;
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
-                    if(inventory[index].TilesList.Count == 0) allListEmpty = true; 
+                    CheckTabsCount();
 
                 }
             }
-            
-              
-
         }
-
-
-
         private void Update() {
-            if(allListEmpty) return; 
+
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            hitSomething = Physics.Raycast(ray, out hitInfo, 30);
+            hitSomething = Physics.Raycast(ray, out ground, 30);
             if(!hitSomething) {
                 preview.SetActive(false);
                 return;
             }
-
-            notFree = Physics.Raycast(hitInfo.collider.transform.position, Vector3.up, 10);
-
+            notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground, 10);
+            if(allListEmpty) return;
             if(!notFree) {
                 for(int i = 0; i < preview.transform.childCount; i++) {
                     if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
-
                         preview.transform.GetChild(i).gameObject.SetActive(true);
                         break;
                     }
                 }
                 currentTile = inventory[index].TilesList[0];
                 preview.SetActive(true);
-                preview.transform.position = hitInfo.collider.gameObject.transform.position + Vector3.up / 2;
+                preview.transform.position = ground.collider.gameObject.transform.position + Vector3.up / 2;
                 preview.transform.rotation = inventory[index].Orientation;
             }
             else preview.SetActive(false);
         }
+
+        private void CheckTabsCount() {
+            for(int i = 0; i < inventory.Count; i++) {
+                if(inventory[i].TilesList.Count != 0) {
+                    Debug.Log("oui il reste des eléméents dans ma liste"); 
+                    index = i;
+                    break; 
+                    //currentTile  = inventory[index].TilesList[0];
+                    
+                }
+            }
+            allListEmpty = inventory[index].TilesList.Count == 0 ? true : false;
+        }
+
 
 
 
