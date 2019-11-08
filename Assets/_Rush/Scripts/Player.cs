@@ -36,33 +36,19 @@ namespace Com.IsartDigital.Rush
 
             if(!hitSomething) return;
 
-            if(notFree) {
-                Inventory lInventory;
-                for(int i = 0; i < inventory.Count; i++) {
-                    lInventory = inventory[i];
-                    if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
-                        Destroy(tileOnground.collider.gameObject);
-                        lInventory.TilesList.Add(lInventory.Tile);
-                        CheckTabsCount();
-                        index = inventory.IndexOf(lInventory);
-                        currentTile = lInventory.TilesList[0];
+            if(notFree && RecupTile()) return; 
 
-                        
-                        return;
-                    }
-                }
-            }
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
                 currentTile.layer = 8;
 
                 inventory[index].TilesList.RemoveAt(0);
-
+                SetActiveFalseAllPreview();
                 if(inventory[index].TilesList.Count == 0) {
                     index++;
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
+                   
                     CheckTabsCount();
-
                 }
             }
         }
@@ -70,42 +56,75 @@ namespace Com.IsartDigital.Rush
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             hitSomething = Physics.Raycast(ray, out ground, 30);
+
             if(!hitSomething) {
                 preview.SetActive(false);
                 return;
             }
+
             notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground, 10);
+
             if(allListEmpty) return;
-            if(!notFree) {
-                for(int i = 0; i < preview.transform.childCount; i++) {
-                    if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
-                        preview.transform.GetChild(i).gameObject.SetActive(true);
-                        break;
-                    }
-                }
-                currentTile = inventory[index].TilesList[0];
-                preview.SetActive(true);
-                preview.transform.position = ground.collider.gameObject.transform.position + Vector3.up / 2;
-                preview.transform.rotation = inventory[index].Orientation;
-            }
+             if(!notFree) {
+                DisplayPreview(); 
+             }
+
             else preview.SetActive(false);
         }
 
         private void CheckTabsCount() {
             for(int i = 0; i < inventory.Count; i++) {
                 if(inventory[i].TilesList.Count != 0) {
-                    Debug.Log("oui il reste des eléméents dans ma liste"); 
                     index = i;
-                    break; 
-                    //currentTile  = inventory[index].TilesList[0];
-                    
+                    break;
                 }
             }
             allListEmpty = inventory[index].TilesList.Count == 0 ? true : false;
         }
 
+        private void DisplayPreview() {
+            currentTile = inventory[index].TilesList[0];
+            for(int i = 0; i < preview.transform.childCount; i++) {
+                if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
+                    
+                    preview.transform.GetChild(i).gameObject.SetActive(true);
+                    
+                    break;
+                }
+          
+            }
+            
+            preview.SetActive(true);
+            preview.transform.position = ground.collider.gameObject.transform.position + Vector3.up / 2;
+            preview.transform.rotation = inventory[index].Orientation;
 
+        }
 
+        private bool RecupTile() {
+            Inventory lInventory;
+            for(int i = 0; i < inventory.Count; i++) {
+                lInventory = inventory[i];
+                if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
+                    Destroy(tileOnground.collider.gameObject);
+                    lInventory.TilesList.Add(lInventory.Tile);
+                    CheckTabsCount();
+                    index = inventory.IndexOf(lInventory);
+                    currentTile = lInventory.TilesList[0];
+                    
+                    return true;
+                }
+                
+            }
+
+            return false; 
+            
+        }
+
+        private void SetActiveFalseAllPreview() {
+            for(int i = 0; i < preview.transform.childCount; i++) {
+                preview.transform.GetChild(i).gameObject.SetActive(false); 
+            }
+        }
 
     }
 }
