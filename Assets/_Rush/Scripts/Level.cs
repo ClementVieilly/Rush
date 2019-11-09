@@ -16,10 +16,10 @@ namespace Com.IsartDigital.Rush {
 
             Inventory lInventory;
            
-            for(int i = 0; i < inventoryLevel.Count; i++) {
+            for(int i = inventoryLevel.Count - 1; i >= 0; i--) {
                 lInventory = inventoryLevel[i];
                 lInventory.TilesList.Clear();
-                for(int j = 0; j < lInventory.getCount; j++) {
+                for(int j = lInventory.getCount - 1; j >= 0; j--) {
                     lInventory.TilesList.Add(lInventory.Tile);
                    
                 }

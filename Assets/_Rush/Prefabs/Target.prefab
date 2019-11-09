@@ -87,9 +87,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4081725744714006}
   - component: {fileID: -7152340722245954973}
+  - component: {fileID: 5992266365109853338}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +125,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e495d4c2763244a8ce0c9c634fe380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winNumber: 5
+--- !u!65 &5992266365109853338
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244564097872744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.793751, y: 0.07362127, z: 0.7914314}
+  m_Center: {x: -0.0077616572, y: -0.32, z: 0.014501095}
 --- !u!1 &1289343281830474
 GameObject:
   m_ObjectHideFlags: 0

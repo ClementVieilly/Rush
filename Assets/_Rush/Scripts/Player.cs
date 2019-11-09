@@ -25,35 +25,29 @@ namespace Com.IsartDigital.Rush
         protected RaycastHit tileOnground;
         private bool allListEmpty = false;
 
+        private Action DoAction;
+
         public void Init() {
             preview = Instantiate(previewPrefab);
-
             currentTile = inventory[index].TilesList[0];
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
+            SetModeNormal(); 
+        }
+        public void SetModeVoid() {
+            DoAction = DoActionVoid; 
         }
 
-        private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
-
-            if(!hitSomething) return;
-
-            if(notFree && RecupTile()) return; 
-
-            if(inventory[index].TilesList.Count > 0) {
-                currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
-                currentTile.layer = 8;
-
-                inventory[index].TilesList.RemoveAt(0);
-                SetActiveFalseAllPreview();
-                if(inventory[index].TilesList.Count == 0) {
-                    index++;
-                    index = Mathf.Clamp(index, 0, inventory.Count - 1);
-                   
-                    CheckTabsCount();
-                }
-            }
+        public void SetModeNormal() {
+            DoAction = DoActionNormal; 
         }
-        private void Update() {
 
+
+
+        private void DoActionVoid() {
+
+        }
+
+        private void DoActionNormal() {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             hitSomething = Physics.Raycast(ray, out ground, 30);
 
@@ -65,15 +59,38 @@ namespace Com.IsartDigital.Rush
             notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground, 10);
 
             if(allListEmpty) return;
-             if(!notFree) {
-                DisplayPreview(); 
-             }
+            if(!notFree) {
+                DisplayPreview();
+            }
 
             else preview.SetActive(false);
         }
 
+
+        private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
+
+            if(!hitSomething) return;
+
+            if(notFree && RecupTile()) return; 
+
+            if(inventory[index].TilesList.Count > 0) {
+                currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
+                //currentTile.layer = 8;
+                inventory[index].TilesList.RemoveAt(0);
+                SetActiveFalseAllPreview();
+                if(inventory[index].TilesList.Count == 0) {
+                    index++;
+                    index = Mathf.Clamp(index, 0, inventory.Count - 1);
+                    CheckTabsCount();
+                }
+            }
+        }
+        private void Update() {
+            DoAction(); 
+        }
+
         private void CheckTabsCount() {
-            for(int i = 0; i < inventory.Count; i++) {
+            for(int i = inventory.Count - 1; i >= 0; i--) {
                 if(inventory[i].TilesList.Count != 0) {
                     index = i;
                     break;
@@ -84,7 +101,7 @@ namespace Com.IsartDigital.Rush
 
         private void DisplayPreview() {
             currentTile = inventory[index].TilesList[0];
-            for(int i = 0; i < preview.transform.childCount; i++) {
+            for(int i = preview.transform.childCount - 1; i >= 0; i--) {
                 if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
                     
                     preview.transform.GetChild(i).gameObject.SetActive(true);
@@ -102,7 +119,7 @@ namespace Com.IsartDigital.Rush
 
         private bool RecupTile() {
             Inventory lInventory;
-            for(int i = 0; i < inventory.Count; i++) {
+            for(int i = inventory.Count - 1; i >= 0; i--) {
                 lInventory = inventory[i];
                 if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
                     Destroy(tileOnground.collider.gameObject);
@@ -110,9 +127,11 @@ namespace Com.IsartDigital.Rush
                     CheckTabsCount();
                     index = inventory.IndexOf(lInventory);
                     currentTile = lInventory.TilesList[0];
-                    
+                    SetActiveFalseAllPreview(); 
                     return true;
                 }
+
+
                 
             }
 
@@ -121,7 +140,7 @@ namespace Com.IsartDigital.Rush
         }
 
         private void SetActiveFalseAllPreview() {
-            for(int i = 0; i < preview.transform.childCount; i++) {
+            for(int i = preview.transform.childCount - 1; i >= 0; i--) {
                 preview.transform.GetChild(i).gameObject.SetActive(false); 
             }
         }

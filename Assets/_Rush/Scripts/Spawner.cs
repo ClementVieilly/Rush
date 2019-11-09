@@ -20,16 +20,19 @@ namespace Com.IsartDigital.Rush {
         
         public static void EmptySpawner() {
             Spawner lSpawn; 
-            for(int i = 0; i < list.Count; i++) {
+            for(int i = list.Count - 1; i >= 0; i--) {
                 lSpawn = list[i];
-                lSpawn.spawnCounter = 0; 
+                lSpawn.spawnCounter = 0;
+                lSpawn.frequencyCounter = 0; 
             }
+
+            
         }
 
         public static void InitAll() {
             Spawner lSpawn;
           
-            for(int i = 0; i < list.Count; i++) {
+            for(int i = list.Count - 1; i >= 0; i--) {
                 lSpawn = list[i];
                 lSpawn.Init(); 
             }
@@ -47,7 +50,9 @@ namespace Com.IsartDigital.Rush {
         private void TimeManager_OnTick() {
            
             frequencyCounter++;
-            if(frequencyCounter % spawnFrequence == 0 && spawnCounter < spawnNumber) {
+             
+            if(frequencyCounter > spawnFrequence && spawnCounter < spawnNumber) {
+                frequencyCounter = 0; 
                 GameObject go = Instantiate(cubePrefab, transform.position + new Vector3(0, 1f / 2, 0), transform.rotation);
                 go.GetComponent<CubeMove>().Init();
                 spawnCounter++;

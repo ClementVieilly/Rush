@@ -12,6 +12,7 @@ TagManager:
   - Cube
   - Wall
   - Stop
+  - Target
   layers:
   - Default
   - TransparentFX

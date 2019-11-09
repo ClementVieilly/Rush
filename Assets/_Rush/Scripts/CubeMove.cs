@@ -16,9 +16,6 @@ namespace Com.IsartDigital.Rush
     {
         public static event CubeMoveEventHandler OnLoseContext;
         public static List<CubeMove> list = new List<CubeMove>(); 
-        //[SerializeField, Range(0.1f, 5f)] private float speed = 0.7f;
-        //private float elapsedTime = 0f;
-        //private float durationBetweenTicks = 1f;
 
         private float ratio = 0;
         private Vector3 fromPosition;
@@ -100,16 +97,6 @@ namespace Com.IsartDigital.Rush
             else CheckTilesCollision();
 
         }
-
-        /*private void Tick() {
-            if(elapsedTime > durationBetweenTicks) {
-                elapsedTime = 0f;
-                CheckCollision();
-
-            }
-            elapsedTime += Time.deltaTime * speed;
-            ratio = Mathf.Clamp01(elapsedTime / durationBetweenTicks);
-        }*/
 
         private void CheckTilesCollision() {
 
@@ -239,7 +226,6 @@ namespace Com.IsartDigital.Rush
 
         private void OnTriggerEnter(Collider other) {
             if(other.CompareTag(cubeTag)) {
-                
                 OnLoseContext?.Invoke();
 
             }
@@ -248,8 +234,6 @@ namespace Com.IsartDigital.Rush
 
         public void Destroy() {
             TimeManager.OnTick -= TimeManager_OnTick;
-            //a verifier !!
-            //OnLoseContext = null;
             list.RemoveAt(list.IndexOf(this));
             Destroy(gameObject); 
         }

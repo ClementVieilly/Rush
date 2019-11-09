@@ -6,8 +6,10 @@
 using System;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush.Manager {
-	public class GameManager : MonoBehaviour {
+namespace Com.IsartDigital.Rush.Manager
+{
+    public class GameManager : MonoBehaviour
+    {
 
         private uint targetCounter = 0;
         public static bool stopTest = false;
@@ -15,25 +17,31 @@ namespace Com.IsartDigital.Rush.Manager {
         [SerializeField] private GameObject level;
         private Level levelScript;
         [SerializeField] private Player player;
+        private bool actionPhase;
 
         private void Start() {
-            levelScript = level.GetComponent<Level>(); 
+            levelScript = level.GetComponent<Level>();
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
+            ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
             timeManager = FindObjectOfType<TimeManager>();
             levelScript.Init();
             CreateLevel();
-           
-            player.Init(); 
+
+            player.Init();
+        }
+
+        private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
+            if(actionPhase) {
+                timeManager.SetModeVoid();
+                ReorganiseLevel();
+            }
         }
 
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
             Debug.Log("défaite");
             ReorganiseLevel();
-            
-           
-           
             //Défaite 
             //Refaire tout le niveau
         }
@@ -49,16 +57,16 @@ namespace Com.IsartDigital.Rush.Manager {
         }
 
         private void ReorganiseLevel() {
-            
-            CubeMove.DestroyAll(); 
+            CubeMove.DestroyAll();
             Spawner.EmptySpawner();
             Target.EmptyTarget();
-            
+            player.SetModeNormal(); 
         }
 
         public void OnGo() {
             timeManager.SetModeNormal();
-            InitAllGameObject(); 
+            actionPhase = true;
+            player.SetModeVoid(); 
         }
 
         private void InitAllGameObject() {
@@ -69,12 +77,13 @@ namespace Com.IsartDigital.Rush.Manager {
         }
 
         protected void CreateLevel() {
+            actionPhase = false;
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
-           
             for(int i = 0; i < levelScript.inventoryLevel.Count; i++) {
-                Player.inventory.Add(levelScript.inventoryLevel[i]); 
+                Player.inventory.Add(levelScript.inventoryLevel[i]);
             }
-           
+            InitAllGameObject();
+
         }
     }
 }

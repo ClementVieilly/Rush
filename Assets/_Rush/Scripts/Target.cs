@@ -21,7 +21,7 @@ namespace Com.IsartDigital.Rush
 
         public static void EmptyTarget() {
             Target lTarget; 
-            for(int i = 0; i < list.Count; i++) {
+            for(int i = list.Count - 1; i >= 0; i--) {
                 lTarget = list[i];
                 lTarget.cubeCounter = 0; 
             }
@@ -29,7 +29,7 @@ namespace Com.IsartDigital.Rush
 
         public static void InitAll() {
             Target lTarget;
-            for(int i = 0; i < list.Count; i++) {
+            for(int i = list.Count - 1; i >= 0; i--) {
                 
                 lTarget = list[i];
                 lTarget.Init(); 
