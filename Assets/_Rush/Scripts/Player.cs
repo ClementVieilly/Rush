@@ -15,7 +15,7 @@ namespace Com.IsartDigital.Rush
     {
         public static List<Inventory> inventory = new List<Inventory>();
         protected GameObject currentTile;
-        protected int index = 0;
+        protected int index;
         [SerializeField] protected Camera cam;
         [SerializeField] protected GameObject previewPrefab;
         private GameObject preview;
@@ -26,12 +26,17 @@ namespace Com.IsartDigital.Rush
         private bool allListEmpty = false;
 
         private Action DoAction;
-
+        private void Awake() {
+            SetModeVoid();
+           
+        }
         public void Init() {
+            index = inventory.Count - 1; 
             preview = Instantiate(previewPrefab);
             currentTile = inventory[index].TilesList[0];
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
-            SetModeNormal(); 
+            SetModeNormal();
+          
         }
         public void SetModeVoid() {
             DoAction = DoActionVoid; 
@@ -56,7 +61,7 @@ namespace Com.IsartDigital.Rush
                 return;
             }
 
-            notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground, 10);
+            notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground,10);
 
             if(allListEmpty) return;
             if(!notFree) {
@@ -79,9 +84,10 @@ namespace Com.IsartDigital.Rush
                 inventory[index].TilesList.RemoveAt(0);
                 SetActiveFalseAllPreview();
                 if(inventory[index].TilesList.Count == 0) {
-                    index++;
-                    index = Mathf.Clamp(index, 0, inventory.Count - 1);
+                   // index++;
+                    Debug.Log(index); 
                     CheckTabsCount();
+                    index = Mathf.Clamp(index, 0, inventory.Count - 1);
                 }
             }
         }
@@ -93,6 +99,8 @@ namespace Com.IsartDigital.Rush
             for(int i = inventory.Count - 1; i >= 0; i--) {
                 if(inventory[i].TilesList.Count != 0) {
                     index = i;
+                    Debug.Log("CheckTabsCount"); 
+                    Debug.Log(index); 
                     break;
                 }
             }

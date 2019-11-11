@@ -21,7 +21,7 @@ namespace Com.IsartDigital.Rush {
         private string horizontal = "Horizontal";
 
         private void Start() {
-            radius = 20;
+            radius = 14;
             ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held; 
             ControllerManager.OnKeyDown += ControllerManager_OnKeyDown; 
         }

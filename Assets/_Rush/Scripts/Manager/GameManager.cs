@@ -4,6 +4,7 @@
 ///-----------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.Manager
@@ -15,19 +16,29 @@ namespace Com.IsartDigital.Rush.Manager
         public static bool stopTest = false;
         protected TimeManager timeManager;
         [SerializeField] private GameObject level;
+        [SerializeField] private Hud hud;
+        [SerializeField] private List<Level> levelList = new List<Level>();
+
         private Level levelScript;
         [SerializeField] private Player player;
         private bool actionPhase;
 
         private void Start() {
-            levelScript = level.GetComponent<Level>();
+            levelScript = levelList[0]; 
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
             timeManager = FindObjectOfType<TimeManager>();
             levelScript.Init();
             CreateLevel();
+            player.Init();
+            hud.Init();
+        }
 
+        public void Init(int Level = 0) {
+            levelScript.Init();
+            CreateLevel();
+            //CreateLevel(Level); 
             player.Init();
         }
 
@@ -79,7 +90,11 @@ namespace Com.IsartDigital.Rush.Manager
         protected void CreateLevel() {
             actionPhase = false;
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
-            for(int i = 0; i < levelScript.inventoryLevel.Count; i++) {
+           /* for(int i = 0; i < levelScript.inventoryLevel.Count; i++) {
+                Player.inventory.Add(levelScript.inventoryLevel[i]);
+            }*/
+
+            for(int i = levelScript.inventoryLevel.Count - 1; i >= 0; i--) {
                 Player.inventory.Add(levelScript.inventoryLevel[i]);
             }
             InitAllGameObject();
