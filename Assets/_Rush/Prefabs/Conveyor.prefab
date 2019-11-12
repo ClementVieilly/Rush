@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4885800248076192}
   - component: {fileID: 65360627517417286}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Conveyor
   m_TagString: Conveyor
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4307444081403760}
   - component: {fileID: 33381768624494266}
   - component: {fileID: 23335585694824950}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

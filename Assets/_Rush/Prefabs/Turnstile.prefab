@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4032429625451312}
   - component: {fileID: 33805657517034786}
   - component: {fileID: 23235612200930876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4858868011230972}
   - component: {fileID: 65362112007848178}
   - component: {fileID: -7020687103341419936}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Turnstile
   m_TagString: Turnstile
   m_Icon: {fileID: 0}

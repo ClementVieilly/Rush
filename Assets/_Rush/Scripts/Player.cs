@@ -9,13 +9,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Com.IsartDigital.Rush
-{
+{       public delegate void PlayerEventHandler(int index); 
     public class Player : MonoBehaviour
-    {
+    {   
         public static List<Inventory> inventory = new List<Inventory>();
+        public static event PlayerEventHandler OnInventoryEmpty; 
+        public static event PlayerEventHandler OnRecupTile; 
+        public static event PlayerEventHandler OnUpdateInventory; 
         protected GameObject currentTile;
-        protected int index;
+        public int index;
         [SerializeField] protected Camera cam;
         [SerializeField] protected GameObject previewPrefab;
         private GameObject preview;
@@ -80,12 +84,13 @@ namespace Com.IsartDigital.Rush
 
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
-                //currentTile.layer = 8;
+                currentTile.layer = 0;
+                currentTile.transform.GetChild(0).gameObject.layer = 0;
                 inventory[index].TilesList.RemoveAt(0);
                 SetActiveFalseAllPreview();
+                OnUpdateInventory?.Invoke(inventory[index].TilesList.Count); 
                 if(inventory[index].TilesList.Count == 0) {
-                   // index++;
-                    Debug.Log(index); 
+                    OnInventoryEmpty?.Invoke(index);
                     CheckTabsCount();
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
                 }
@@ -95,16 +100,20 @@ namespace Com.IsartDigital.Rush
             DoAction(); 
         }
 
-        private void CheckTabsCount() {
+        public void CheckTabsCount() {
             for(int i = inventory.Count - 1; i >= 0; i--) {
                 if(inventory[i].TilesList.Count != 0) {
+                    
                     index = i;
-                    Debug.Log("CheckTabsCount"); 
-                    Debug.Log(index); 
+                   
                     break;
                 }
             }
-            allListEmpty = inventory[index].TilesList.Count == 0 ? true : false;
+            if(inventory[index].TilesList.Count == 0) {
+                allListEmpty = true;
+                OnInventoryEmpty?.Invoke(index);
+            }
+            else allListEmpty = false; 
         }
 
         private void DisplayPreview() {
@@ -134,6 +143,8 @@ namespace Com.IsartDigital.Rush
                     lInventory.TilesList.Add(lInventory.Tile);
                     CheckTabsCount();
                     index = inventory.IndexOf(lInventory);
+                    OnUpdateInventory?.Invoke(inventory[index].TilesList.Count);
+                    OnRecupTile?.Invoke(index);
                     currentTile = lInventory.TilesList[0];
                     SetActiveFalseAllPreview(); 
                     return true;
@@ -147,7 +158,7 @@ namespace Com.IsartDigital.Rush
             
         }
 
-        private void SetActiveFalseAllPreview() {
+        public void SetActiveFalseAllPreview() {
             for(int i = preview.transform.childCount - 1; i >= 0; i--) {
                 preview.transform.GetChild(i).gameObject.SetActive(false); 
             }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4945710146178106}
   - component: {fileID: 65435824121501538}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stopper
   m_TagString: Stop
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4620291546784396}
   - component: {fileID: 33792914846584012}
   - component: {fileID: 23498469917718640}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

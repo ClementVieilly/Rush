@@ -25,7 +25,7 @@ namespace Com.IsartDigital.Assets._Rush.Scripts
 
         public GameObject Tile { get { return _tile; } }
         public int getCount{ get { return _count; } }
-        public Quaternion Orientation { get { return Quaternion.AngleAxis((int)_orientation, Vector3.up); } }
+        public Quaternion Orientation { get { return Quaternion.AngleAxis((int)_orientation, _tile.transform.up); } }
         public List<GameObject> TilesList { get { return _tilesList; } }
            
         
