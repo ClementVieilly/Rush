@@ -4,13 +4,13 @@
 ///-----------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using Com.IsartDigital.Assets._Rush.Scripts;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.IsartDigital.Rush
-{
+namespace Com.IsartDigital.Rush.UI {
 
     public class Hud : MonoBehaviour
     {
@@ -18,22 +18,42 @@ namespace Com.IsartDigital.Rush
         [SerializeField] private Level level;
         [SerializeField] private Player player;
         private GameObject tiles;
+        private float angle;
+        private float speed = 100;
+        private List<Transform> listOfTilesTransform = new List<Transform>(); 
+
+        private void Start() {
+            Player.OnInventoryEmpty += Player_OnInventoryEmpty;
+            Player.OnRecupTile += Player_OnRecupTile;
+            Player.OnUpdateInventory += Player_OnUpdateInventory;
+            CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
+        }
+
+        private void ControllerManager_OnKeyDown(Vector3 eulerAngle) {
+          
+            for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
+                listOfTilesTransform[i].eulerAngles = new Vector3(0,0 , eulerAngle.y ); 
+            }
+           
+        }
+
+      
+
+        
 
         public void Init() {
-
-            Player.OnInventoryEmpty += Player_OnInventoryEmpty; 
-            Player.OnRecupTile += Player_OnRecupTile; 
-            Player.OnUpdateInventory += Player_OnUpdateInventory; 
-
             Inventory lInventory;
-            Transform lTilesContainer; 
+            Transform lTilesContainer;
+            int index; 
             for(int i = Player.inventory.Count - 1; i >= 0; i--) {
                 lInventory = Player.inventory[i];
-                lTilesContainer = tilesContainer.transform; 
-                tiles = Instantiate(lInventory.Tile, lTilesContainer.GetChild(Player.inventory.Count - 1 -i).transform) ;
-                lTilesContainer.GetChild(i).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(true);
-                lTilesContainer.GetChild(i).transform.GetChild(1).GetComponent<Image>().gameObject.SetActive(true);
-                lTilesContainer.GetChild(i).transform.GetChild(0).GetComponent<Text>().text = lInventory.TilesList.Count.ToString();
+                lTilesContainer = tilesContainer.transform;
+                index = Player.inventory.Count - 1 - i; 
+                tiles = Instantiate(lInventory.Tile, lTilesContainer.GetChild(index).transform.GetChild(2).transform) ;
+                listOfTilesTransform.Add(lTilesContainer.GetChild(index).transform.GetChild(2).transform);
+                lTilesContainer.GetChild(index).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(true);
+                lTilesContainer.GetChild(index).transform.GetChild(1).GetComponent<Image>().gameObject.SetActive(true);
+                lTilesContainer.GetChild(index).transform.GetChild(0).GetComponent<Text>().text = lInventory.TilesList.Count.ToString();
                 tiles.transform.localScale = new Vector3(80, 80, 80);
                 tiles.transform.rotation = Quaternion.AngleAxis(90,tiles.transform.right) *  lInventory.Orientation;   
             } 
@@ -62,9 +82,6 @@ namespace Com.IsartDigital.Rush
             Player.OnInventoryEmpty -= Player_OnInventoryEmpty;
             Player.OnRecupTile -= Player_OnRecupTile;
             Player.OnUpdateInventory -= Player_OnUpdateInventory;
-
-
-
         }
     }
 }

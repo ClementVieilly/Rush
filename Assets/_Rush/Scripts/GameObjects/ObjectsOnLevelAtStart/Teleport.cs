@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush {
+namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
 	public class Teleport : MonoBehaviour {
         [SerializeField] public Transform pair;
         public static List<Transform> transformList = new List<Transform>();

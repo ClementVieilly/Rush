@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush {
+namespace Com.IsartDigital.Rush.UI {
 
     public delegate void MenuEventHandler();
 	public class Menu : MonoBehaviour {

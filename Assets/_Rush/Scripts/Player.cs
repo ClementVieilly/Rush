@@ -4,6 +4,7 @@
 ///-----------------------------------------------------------------
 
 using Com.IsartDigital.Assets._Rush.Scripts;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using System;
 using System.Collections.Generic;
@@ -25,28 +26,31 @@ namespace Com.IsartDigital.Rush
         private GameObject preview;
         protected bool hitSomething;
         protected bool notFree;
+        protected bool isVoid; 
         protected RaycastHit ground;
         protected RaycastHit tileOnground;
         private bool allListEmpty = false;
 
         private Action DoAction;
         private void Awake() {
+            ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
             SetModeVoid();
-           
+            preview = Instantiate(previewPrefab);
         }
         public void Init() {
+            allListEmpty = false; 
             index = inventory.Count - 1; 
-            preview = Instantiate(previewPrefab);
             currentTile = inventory[index].TilesList[0];
-            ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
             SetModeNormal();
           
         }
         public void SetModeVoid() {
-            DoAction = DoActionVoid; 
+            DoAction = DoActionVoid;
+            isVoid = true; 
         }
 
         public void SetModeNormal() {
+            isVoid = false; 
             DoAction = DoActionNormal; 
         }
 
@@ -66,9 +70,10 @@ namespace Com.IsartDigital.Rush
             }
 
             notFree = Physics.Raycast(ground.collider.transform.position, Vector3.up, out tileOnground,10);
-
+            
             if(allListEmpty) return;
             if(!notFree) {
+                
                 DisplayPreview();
             }
 
@@ -78,15 +83,17 @@ namespace Com.IsartDigital.Rush
 
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
-            if(!hitSomething) return;
+            if(isVoid || !hitSomething) return;
 
             if(notFree && RecupTile()) return; 
 
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
                 currentTile.layer = 0;
+                currentTile.gameObject.GetComponent<ObjectsInstanciateScript>().Init();  
                 currentTile.transform.GetChild(0).gameObject.layer = 0;
                 inventory[index].TilesList.RemoveAt(0);
+                //Debug.Log(inventory[index].TilesList.Count); 
                 SetActiveFalseAllPreview();
                 OnUpdateInventory?.Invoke(inventory[index].TilesList.Count); 
                 if(inventory[index].TilesList.Count == 0) {
@@ -164,5 +171,7 @@ namespace Com.IsartDigital.Rush
             }
         }
 
+
+        
     }
 }

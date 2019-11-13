@@ -12,7 +12,7 @@ namespace Com.IsartDigital.Rush {
 	public class Level : MonoBehaviour{
         public List<Inventory> inventoryLevel = new List<Inventory>(); 
 
-        internal void Init() {
+        public void Init() {
 
             Inventory lInventory;
            

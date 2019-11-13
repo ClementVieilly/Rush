@@ -5,10 +5,11 @@
 
 using System;
 using System.Collections.Generic;
+using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush {
+namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private GameObject cubePrefab;

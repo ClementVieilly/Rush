@@ -13,7 +13,7 @@ namespace Com.IsartDigital.Rush.Manager {
         private float elapsedTime = 0f;
         private float durationBetweenTicks = 1f;
         public static  float ratio = 0;
-        public static bool testPhase;
+        private  bool isOnTick;
 
         private Action doAction; 
 
@@ -25,7 +25,8 @@ namespace Com.IsartDigital.Rush.Manager {
         }
 
         public void SetModeVoid() {
-            doAction = doActionVoid; 
+            doAction = doActionVoid;
+            isOnTick = false; 
         }
 
         private void doActionVoid() {
@@ -34,10 +35,20 @@ namespace Com.IsartDigital.Rush.Manager {
 
         public void SetModeNormal() {
             doAction = doActionNormal;
+            isOnTick = true; 
         }
 
         private void doActionNormal() {
             Tick(); 
+        }
+
+        public void SetModeReplay() {
+            if(isOnTick) doAction = doActionNormal;
+            else doAction = doActionVoid; 
+        }
+
+        public void SetModePause() {
+            doAction = doActionVoid; 
         }
 
         private void Tick() {

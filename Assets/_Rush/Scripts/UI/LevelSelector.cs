@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Com.IsartDigital {
+namespace Com.IsartDigital.Rush.UI {
     public delegate void LevelSelectorEventHandler(int level); 
     public class LevelSelector : MonoBehaviour {
         public static event LevelSelectorEventHandler OnChooseLevel; 

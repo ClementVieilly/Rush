@@ -4,15 +4,16 @@
 ///-----------------------------------------------------------------
 
 
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
+using Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.Manager;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush
-{
+namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
     public delegate void CubeMoveEventHandler();
-    public class CubeMove : MonoBehaviour
+    public class CubeMove : ObjectsInstanciateScript
     {
         public static event CubeMoveEventHandler OnLoseContext;
         public static List<CubeMove> list = new List<CubeMove>(); 
@@ -59,7 +60,8 @@ namespace Com.IsartDigital.Rush
                 
             }
         }
-        public void Init() {
+       override public void Init() {
+            base.Init(); 
             list.Add(this); 
 
             rayCastDistance = cubeSide / 2 + rayCastOffsetDistance;
