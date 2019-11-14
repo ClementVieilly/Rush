@@ -19,8 +19,8 @@ namespace Com.IsartDigital.Rush.Manager
 
         private uint targetCounter = 0;
         public static bool stopTest = false;
-        protected TimeManager timeManager;
-        protected UIManager UIManager;
+        [SerializeField] protected TimeManager timeManager;
+        [SerializeField] private UIManager UIManager;
         [SerializeField] private GameObject level;
         [SerializeField] private Hud hud;
         [SerializeField] private List<Level> levelList = new List<Level>();
@@ -36,7 +36,6 @@ namespace Com.IsartDigital.Rush.Manager
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
-            timeManager = FindObjectOfType<TimeManager>();
             levelScript.Init();
             CreateLevel();
             player.Init();
@@ -88,7 +87,10 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
+            ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
+            
             Debug.Log("Victoire");
+            UIManager.DisplayWin(); 
         }
 
         private void ReorganiseLevel() {
@@ -140,7 +142,8 @@ namespace Com.IsartDigital.Rush.Manager
         public void DestroyLevel() {
             Destroy(level.gameObject);
             Player.inventory.Clear();
-            ObjectsInstanciateScript.RemoveAll();  
+            ObjectsInstanciateScript.RemoveAll();
+            Debug.Log("DestroyLevel"); 
         }
     }
 }

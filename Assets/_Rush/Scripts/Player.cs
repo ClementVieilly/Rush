@@ -146,7 +146,7 @@ namespace Com.IsartDigital.Rush
             for(int i = inventory.Count - 1; i >= 0; i--) {
                 lInventory = inventory[i];
                 if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
-                    Destroy(tileOnground.collider.gameObject);
+                    tileOnground.collider.gameObject.GetComponent<ObjectsInstanciateScript>().Destroy();
                     lInventory.TilesList.Add(lInventory.Tile);
                     CheckTabsCount();
                     index = inventory.IndexOf(lInventory);

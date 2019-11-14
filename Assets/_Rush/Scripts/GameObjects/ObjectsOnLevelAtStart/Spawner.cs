@@ -5,12 +5,13 @@
 
 using System;
 using System.Collections.Generic;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
-    public class Spawner : MonoBehaviour
+    public class Spawner : ObjectsInstanciateScript
     {
         [SerializeField] private GameObject cubePrefab;
         [SerializeField] private uint spawnFrequence = 4;
@@ -38,10 +39,9 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
                 lSpawn.Init(); 
             }
         }
-        private void Init() {
-           
+        public override void Init() {
+            base.Init();
             TimeManager.OnTick += TimeManager_OnTick;
-            
         }
 
         private void Awake() {
@@ -60,11 +60,12 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
             }
 
         }
-
-        private void OnDestroy() {
+        public override void Destroy() {
+            base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
-
+            list.RemoveAt(list.IndexOf(this)); 
         }
+       
 
        
     }

@@ -16,6 +16,7 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] private LevelSelector levelSelector;
         [SerializeField] private Hud hud;
         [SerializeField] private Pause pause;
+        [SerializeField] private GameObject WinScreen;
         [SerializeField] private GameManager gameManager;
         private void Start() {
             Menu.OnClickOnMenu += Menu_OnClickOnMenu;
@@ -49,15 +50,25 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void QuitLevel() {
+            if(pause.isActiveAndEnabled) {
+                
+                pause.gameObject.SetActive(false);
+            }
+            else WinScreen.SetActive(false);
             gameManager.DestroyLevel();
-            hud.gameObject.SetActive(false);
             levelSelector.gameObject.SetActive(true);
-            pause.gameObject.SetActive(false); 
+            hud.gameObject.SetActive(false);
+
+        }
+
+        public void DisplayWin() {
+            WinScreen.SetActive(true); 
         }
 
         public void ResetLevel() {
             pause.gameObject.SetActive(false);
             gameManager.ResetLevel();
+            hud.ResetHud(); 
             hud.Init(); 
         }
         private void OnDestroy() {

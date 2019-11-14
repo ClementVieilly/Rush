@@ -234,10 +234,12 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
        
 
-        public void Destroy() {
+
+        public override void Destroy() {
+            base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
             list.RemoveAt(list.IndexOf(this));
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 }

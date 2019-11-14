@@ -14,7 +14,7 @@ namespace Com.IsartDigital.Rush.UI {
 
     public class Hud : MonoBehaviour
     {
-        [SerializeField] private GameObject tilesContainer;
+        [SerializeField] private GameObject tilesContainerContainer;
         [SerializeField] private Level level;
         [SerializeField] private Player player;
         private GameObject tiles;
@@ -30,16 +30,11 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         private void ControllerManager_OnKeyDown(Vector3 eulerAngle) {
-          
             for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
                 listOfTilesTransform[i].eulerAngles = new Vector3(0,0 , eulerAngle.y ); 
             }
            
         }
-
-      
-
-        
 
         public void Init() {
             Inventory lInventory;
@@ -47,8 +42,8 @@ namespace Com.IsartDigital.Rush.UI {
             int index; 
             for(int i = Player.inventory.Count - 1; i >= 0; i--) {
                 lInventory = Player.inventory[i];
-                lTilesContainer = tilesContainer.transform;
-                index = Player.inventory.Count - 1 - i; 
+                lTilesContainer = tilesContainerContainer.transform;
+                index = Player.inventory.Count - 1 - i;
                 tiles = Instantiate(lInventory.Tile, lTilesContainer.GetChild(index).transform.GetChild(2).transform) ;
                 listOfTilesTransform.Add(lTilesContainer.GetChild(index).transform.GetChild(2).transform);
                 lTilesContainer.GetChild(index).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(true);
@@ -60,16 +55,16 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         private void Player_OnUpdateInventory(int index) {
-            tilesContainer.transform.GetChild(Player.inventory.Count - 1 - player.index).transform.GetChild(0).GetComponent<Text>().text = index.ToString();
+            tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - player.index).transform.GetChild(0).GetComponent<Text>().text = index.ToString();
         }
 
         private void Player_OnRecupTile(int index) {
-            tilesContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(true);
+            tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(true);
 
         }
 
         private void Player_OnInventoryEmpty(int index) {
-            tilesContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(false) ; 
+            tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(false) ; 
         }
 
         public void ChangeIndexOfInventory(int index) {
@@ -82,6 +77,17 @@ namespace Com.IsartDigital.Rush.UI {
             Player.OnInventoryEmpty -= Player_OnInventoryEmpty;
             Player.OnRecupTile -= Player_OnRecupTile;
             Player.OnUpdateInventory -= Player_OnUpdateInventory;
+            CameraMove.OnCameraMove -= ControllerManager_OnKeyDown;
+        }
+
+
+        public void ResetHud() {
+            for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
+                Destroy(listOfTilesTransform[i].GetChild(0).gameObject);
+                listOfTilesTransform[i].rotation = Quaternion.identity;
+                listOfTilesTransform[i].gameObject.SetActive(true); 
+            }
+
         }
     }
 }

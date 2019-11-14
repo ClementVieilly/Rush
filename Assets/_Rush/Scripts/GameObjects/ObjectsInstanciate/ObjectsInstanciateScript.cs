@@ -10,7 +10,7 @@ namespace Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate
 {
    public class ObjectsInstanciateScript : GameObjects
     {
-        private static List<ObjectsInstanciateScript> list = new List<ObjectsInstanciateScript>(); 
+        protected static List<ObjectsInstanciateScript> list = new List<ObjectsInstanciateScript>(); 
 
         public static void RemoveAll() {
             for(int i = list.Count - 1; i >= 0; i--) {
@@ -24,7 +24,7 @@ namespace Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate
 
        
 
-        private void Destroy() {
+      virtual  public void Destroy() {
             list.RemoveAt(list.IndexOf(this));
             Destroy(gameObject);
         }
