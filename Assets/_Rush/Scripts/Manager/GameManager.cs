@@ -38,9 +38,9 @@ namespace Com.IsartDigital.Rush.Manager
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
             //levelScript.Init();
-           // CreateLevel();
-           // player.Init();
-           // hud.Init();
+            // CreateLevel();
+            // player.Init();
+            // hud.Init();
         }
 
         public void SetPlay() {
@@ -63,7 +63,8 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript.Init();
             CreateLevel();
             player.Init();
-            hud.Init(); 
+            hud.Init();
+            cameraMove.SetModeNormal(); 
         }
 
         private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
@@ -92,7 +93,7 @@ namespace Com.IsartDigital.Rush.Manager
 
         private void Win() {
             ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
-            
+            targetCounter = 0; 
             Debug.Log("Victoire");
             UIManager.DisplayWin(); 
         }
@@ -101,7 +102,8 @@ namespace Com.IsartDigital.Rush.Manager
             CubeMove.DestroyAll();
             Spawner.EmptySpawner();
             Target.EmptyTarget();
-            player.SetModeNormal(); 
+            player.SetModeNormal();
+            targetCounter = 0; 
         }
 
         public void OnGo() {
@@ -120,12 +122,10 @@ namespace Com.IsartDigital.Rush.Manager
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
             FillPlayerTab(); 
             InitAllGameObjectsOnLevelAtStart();
-            Debug.Log("fin createLevel"); 
         }
 
         private void FillPlayerTab() {
             for(int i = levelScript.inventoryLevel.Count - 1; i >= 0; i--) {
-                Debug.Log(levelScript.inventoryLevel[i]); 
                 Player.inventory.Add(levelScript.inventoryLevel[i]);
             }
         }

@@ -21,9 +21,8 @@ namespace Com.IsartDigital.Rush.Manager
         private void Start() {
             Menu.OnClickOnMenu += Menu_OnClickOnMenu;
             LevelSelector.OnChooseLevel += LevelSelector_OnChooseLevel;
-            ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
+           
         }
-
         private void ControllerManager_OnEchapDown(float axeX, float axeY) {
             if(!gameManager.onPause) {
                 pause.gameObject.SetActive(true);
@@ -41,7 +40,7 @@ namespace Com.IsartDigital.Rush.Manager
             levelSelector.gameObject.SetActive(false);
             hud.gameObject.SetActive(true);
             gameManager.Init(level);
-
+            ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
         }
 
         private void Menu_OnClickOnMenu() {
@@ -58,11 +57,12 @@ namespace Com.IsartDigital.Rush.Manager
             gameManager.DestroyLevel();
             levelSelector.gameObject.SetActive(true);
             hud.gameObject.SetActive(false);
+            hud.ResetHud();
 
         }
 
         public void DisplayWin() {
-            ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
+            ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
             WinScreen.SetActive(true); 
         }
 

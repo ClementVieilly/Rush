@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush.Manager {
     public delegate void TimeManagerEventHandler (); 
 	public class TimeManager : MonoBehaviour {
-        [SerializeField, Range(0.1f, 5f)] private float speed = 0.7f;
+        [SerializeField, Range(0.1f, 5f)] private float speed = 1.2f;
         private float elapsedTime = 0f;
         private float durationBetweenTicks = 1f;
         public static  float ratio = 0;

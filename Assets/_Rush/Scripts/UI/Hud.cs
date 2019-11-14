@@ -6,8 +6,6 @@
 using System;
 using System.Collections.Generic;
 using Com.IsartDigital.Assets._Rush.Scripts;
-using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
-using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,13 +21,6 @@ namespace Com.IsartDigital.Rush.UI {
         private float speed = 100;
         private List<Transform> listOfTilesTransform = new List<Transform>(); 
 
-        private void Start() {
-            Player.OnInventoryEmpty += Player_OnInventoryEmpty;
-            Player.OnRecupTile += Player_OnRecupTile;
-            Player.OnUpdateInventory += Player_OnUpdateInventory;
-            CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
-        }
-
         private void ControllerManager_OnKeyDown(Vector3 eulerAngle) {
             for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
                 listOfTilesTransform[i].eulerAngles = new Vector3(0,0 , eulerAngle.y ); 
@@ -38,6 +29,11 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         public void Init() {
+            CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
+            Player.OnInventoryEmpty += Player_OnInventoryEmpty;
+            Player.OnRecupTile += Player_OnRecupTile;
+            Player.OnUpdateInventory += Player_OnUpdateInventory;
+
             Inventory lInventory;
             Transform lTilesContainer;
             int index; 
@@ -69,6 +65,7 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         public void ChangeIndexOfInventory(int index) {
+            if(!tilesContainerContainer.transform.GetChild(index).transform.GetChild(2).gameObject.activeSelf) return; 
             player.index = (Player.inventory.Count - 1) - index;
             player.SetActiveFalseAllPreview(); 
         }
@@ -82,11 +79,22 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         public void ResetHud() {
+            CameraMove.OnCameraMove -= ControllerManager_OnKeyDown;
+            Player.OnInventoryEmpty -= Player_OnInventoryEmpty;
+            Player.OnRecupTile -= Player_OnRecupTile;
+            Player.OnUpdateInventory -= Player_OnUpdateInventory;
             for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
                 Destroy(listOfTilesTransform[i].GetChild(0).gameObject);
                 listOfTilesTransform[i].rotation = Quaternion.identity;
-                listOfTilesTransform[i].gameObject.SetActive(true); 
+                listOfTilesTransform[i].gameObject.SetActive(true);
+                listOfTilesTransform[i].eulerAngles = new Vector3(0, 0, 0);
             }
+
+            for(int i = tilesContainerContainer.transform.childCount - 1; i >= 0; i--) {
+                tilesContainerContainer.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(false);
+            }
+
+            listOfTilesTransform.Clear(); 
 
         }
     }

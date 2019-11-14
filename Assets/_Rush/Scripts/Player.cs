@@ -41,7 +41,7 @@ namespace Com.IsartDigital.Rush
             SetActiveFalseAllPreview(); 
             allListEmpty = false; 
             index = inventory.Count - 1;
-            Debug.Log(inventory[index].TilesList[0]); 
+            
             currentTile = inventory[index].TilesList[0];
             SetModeNormal();
           
@@ -86,7 +86,6 @@ namespace Com.IsartDigital.Rush
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
             if(isVoid || !hitSomething) return;
-
             if(notFree && RecupTile()) return; 
 
             if(inventory[index].TilesList.Count > 0) {
@@ -156,6 +155,7 @@ namespace Com.IsartDigital.Rush
                     SetActiveFalseAllPreview(); 
                     return true;
                 }
+                if(tileOnground.collider.CompareTag("Target") || tileOnground.collider.CompareTag("Ground")) return true; 
 
             }
 

@@ -51,24 +51,18 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         }
 
         private void CheckCollisionCube() {
-            
-
             if(Physics.Raycast(new Vector3(transform.position.x,transform.position.y -0.3f,transform.position.z), Vector3.up, out hit,15)) {
                 cubeCounter++;
-                hit.collider.gameObject.GetComponent<CubeMove>().Destroy();  
-                if(cubeCounter == winNumber) OnAllCubeOnTarget?.Invoke();
+                hit.collider.gameObject.GetComponent<CubeMove>().Destroy();
+                if(cubeCounter == winNumber) {
+                    OnAllCubeOnTarget?.Invoke();
+                    Debug.Log("Invoke"); 
+                }
             } 
         }
 
-     /*  public override void Destroy() {
-            Debug.Log("DestroyTarget"); 
-            base.Destroy();
-            TimeManager.OnTick -= TimeManager_OnTick;
-            
-            list.RemoveAt(list.IndexOf(this)); 
-        }*/
         private void OnDestroy() {
-            Debug.Log("DestroyTarget");
+
             base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
 

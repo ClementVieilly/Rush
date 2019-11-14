@@ -30,7 +30,8 @@ namespace Com.IsartDigital.Rush {
             speed = 2; 
             ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held; 
             ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
-            SetModeNormal(); 
+            SetModeVoid();
+            
         }
 
         private void ControllerManager_OnKeyDown(float axeX,float axeY) {
@@ -61,7 +62,8 @@ namespace Com.IsartDigital.Rush {
         }
 
         public void SetModeVoid() {
-            doAction = doActionVoid; 
+            doAction = doActionVoid;
+            
         }
 
         private void doActionVoid() {
