@@ -5,14 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
     public delegate void TargetEventHandler(); 
-    public class Target : ObjectsInstanciateScript
+    public class Target : ObjectsOnLevelAtStartScript
     {
         public static event TargetEventHandler OnAllCubeOnTarget; 
         private RaycastHit hit;
@@ -41,7 +41,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         }
 
         public override void Init() {
-            base.Init();
+           // base.Init();
             TimeManager.OnTick += TimeManager_OnTick;
         }
         
@@ -51,7 +51,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         }
 
         private void CheckCollisionCube() {
-            Debug.Log("oui"); 
+            
+
             if(Physics.Raycast(new Vector3(transform.position.x,transform.position.y -0.3f,transform.position.z), Vector3.up, out hit,15)) {
                 cubeCounter++;
                 hit.collider.gameObject.GetComponent<CubeMove>().Destroy();  
@@ -59,12 +60,19 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
             } 
         }
 
-        public override void Destroy() {
+     /*  public override void Destroy() {
             Debug.Log("DestroyTarget"); 
             base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
             
             list.RemoveAt(list.IndexOf(this)); 
+        }*/
+        private void OnDestroy() {
+            Debug.Log("DestroyTarget");
+            base.Destroy();
+            TimeManager.OnTick -= TimeManager_OnTick;
+
+            list.RemoveAt(list.IndexOf(this));
         }
 
     }

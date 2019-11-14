@@ -6,12 +6,13 @@
 using System;
 using System.Collections.Generic;
 using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
-    public class Spawner : ObjectsInstanciateScript
+    public class Spawner : ObjectsOnLevelAtStartScript
     {
         [SerializeField] private GameObject cubePrefab;
         [SerializeField] private uint spawnFrequence = 4;
@@ -41,11 +42,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         }
         public override void Init() {
             base.Init();
-            TimeManager.OnTick += TimeManager_OnTick;
-        }
-
-        private void Awake() {
             list.Add(this);
+            TimeManager.OnTick += TimeManager_OnTick;
         }
 
         private void TimeManager_OnTick() {

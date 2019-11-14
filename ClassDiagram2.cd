@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Com.IsartDigital.Rush.CameraMove" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQVAEAACCAAAAAAEACAEQAiAIACAQAACAAAAAAIAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\CameraMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Level" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAg=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Player" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQJAAAABADgIAAEAABiQCACAAIBABCAQACgAABEEA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Assets._Rush.Scripts.GameObjects.GameObjects" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAACAABAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\GameObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.Arrow" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\Arrow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.Conveyor" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\Conveyor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.CubeMove" Collapsed="true">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQxAE4EIDAECA1EBAgwAkQEgAABIAhABSABiBgIAAAo=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\CubeMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.Stoppeur" Collapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\Stoppeur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.Turnstile" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\Turnstile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate.ObjectsInstanciateScript" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAIAACAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\ObjectsInstanciateScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStart.ObjectsOnLevelAtStartScript" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAABAAAgAAAACAAAAAEA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsOnLevelAtStart\ObjectsOnLevelAtStartScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart.Spawner" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACgCAAAAkABAAACAAAAAAAABAAAAMAAACAAAAAEA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsOnLevelAtStart\Spawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart.Target" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgQAAAAAAhACCAAAAAAAQAAAAABEAAACAAAAAEA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsOnLevelAtStart\Target.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart.Teleport" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAIAAAAAAAAACBAAAAEAAAAAAIAAEA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsOnLevelAtStart\Teleport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Assets._Rush.Scripts.Inventory" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQJAIAAAAAAAAAAAAAAAAAAAAgCAAAAEAQA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Manager.ControllerManager" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAEAEAAAAICABAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\ControllerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Manager.GameManager" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEAAFkECCImAAAAAEAAAAACAAMQAIABEAACCACAIAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Manager.TimeManager" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAASAAAAAAEACAAQAABIAACSAACAAgAAAQQAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\TimeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.Manager.UIManager" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAgACCAABEAAAAAAAggAAAAAACAAAAABGAAAIAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.UI.Hud" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABARAAAAACAAAAoABAAAAEIAAgEAAQABAAACAABCAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\Hud.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.UI.LevelSelector" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\LevelSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.UI.Menu" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Com.IsartDigital.Rush.UI.Pause" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAABAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\Pause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Com.IsartDigital.Assets._Rush.Scripts.direction" Collapsed="true">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Com.IsartDigital.Rush.CameraMoveEventHandler" Collapsed="true">
+    <Position X="18.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\CameraMove.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.PlayerEventHandler" Collapsed="true">
+    <Position X="20.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate.CubeMoveEventHandler" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsInstanciate\CubeMove.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart.TargetEventHandler" Collapsed="true">
+    <Position X="22.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\GameObjects\ObjectsOnLevelAtStart\Target.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.Manager.ControllerManagerEventHandler" Collapsed="true">
+    <Position X="20.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\ControllerManager.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.Manager.TimeManagerEventHandler" Collapsed="true">
+    <Position X="24" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\Manager\TimeManager.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.UI.LevelSelectorEventHandler" Collapsed="true">
+    <Position X="24" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\LevelSelector.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Com.IsartDigital.Rush.UI.MenuEventHandler" Collapsed="true">
+    <Position X="18.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Rush\Scripts\UI\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

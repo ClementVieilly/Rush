@@ -3,8 +3,9 @@
 /// Date : 22/10/2019 09:55
 ///-----------------------------------------------------------------
 
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects;
 using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
-using Com.IsartDigital.Rush.GameObjects;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.UI;
@@ -23,7 +24,7 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] private UIManager UIManager;
         [SerializeField] private GameObject level;
         [SerializeField] private Hud hud;
-        [SerializeField] private List<Level> levelList = new List<Level>();
+        [SerializeField] private List<GameObject> levelList = new List<GameObject>();
         [SerializeField] private CameraMove cameraMove; 
 
         private Level levelScript;
@@ -32,14 +33,14 @@ namespace Com.IsartDigital.Rush.Manager
         public bool onPause;
 
         private void Start() {   
-            levelScript = levelList[0]; 
+            
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
-            levelScript.Init();
-            CreateLevel();
-            player.Init();
-            hud.Init();
+            //levelScript.Init();
+           // CreateLevel();
+           // player.Init();
+           // hud.Init();
         }
 
         public void SetPlay() {
@@ -56,11 +57,13 @@ namespace Com.IsartDigital.Rush.Manager
             onPause = true; 
         }
 
-        public void Init(int Level = 0) {
+        public void Init(int levelIndex = 0) {
+            level = levelList[levelIndex]; 
+            levelScript = level.GetComponent<Level>();
             levelScript.Init();
             CreateLevel();
-            //CreateLevel(Level); 
             player.Init();
+            hud.Init(); 
         }
 
         private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
@@ -76,6 +79,7 @@ namespace Com.IsartDigital.Rush.Manager
             timeManager.SetModeVoid();
             Debug.Log("défaite");
             ReorganiseLevel();
+            hud.gameObject.SetActive(true); 
             //Défaite 
             //Refaire tout le niveau
         }
@@ -107,23 +111,21 @@ namespace Com.IsartDigital.Rush.Manager
             hud.gameObject.SetActive(false); 
         }
 
-        private void InitAllGameObject() {
-            Target.InitAll();
-            Spawner.InitAll();
-            Teleport.InitAll();
-            //Mettre tout les init ici 
+        private void InitAllGameObjectsOnLevelAtStart() {
+            ObjectsOnLevelAtStartScript.InitAllGameObjectAtLevelAtStart(); 
         }
 
         protected void CreateLevel() {
             actionPhase = false;
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
             FillPlayerTab(); 
-            InitAllGameObject();
-
+            InitAllGameObjectsOnLevelAtStart();
+            Debug.Log("fin createLevel"); 
         }
 
         private void FillPlayerTab() {
             for(int i = levelScript.inventoryLevel.Count - 1; i >= 0; i--) {
+                Debug.Log(levelScript.inventoryLevel[i]); 
                 Player.inventory.Add(levelScript.inventoryLevel[i]);
             }
         }
@@ -136,14 +138,15 @@ namespace Com.IsartDigital.Rush.Manager
             Player.inventory.Clear(); 
             levelScript.Init();
             FillPlayerTab(); 
-            player.Init(); 
-            
+            player.Init();   
         }
         public void DestroyLevel() {
             Destroy(level.gameObject);
             Player.inventory.Clear();
             ObjectsInstanciateScript.RemoveAll();
-            Debug.Log("DestroyLevel"); 
+            player.SetModeVoid();
+            timeManager.SetModeVoid(); 
+
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Com.IsartDigital.Rush.Manager {
             if(isOnTick) doAction = doActionNormal;
             else doAction = doActionVoid; 
         }
-
+       
         public void SetModePause() {
             doAction = doActionVoid; 
         }

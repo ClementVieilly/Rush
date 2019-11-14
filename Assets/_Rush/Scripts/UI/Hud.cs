@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using Com.IsartDigital.Assets._Rush.Scripts;
+using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,7 +80,6 @@ namespace Com.IsartDigital.Rush.UI {
             Player.OnUpdateInventory -= Player_OnUpdateInventory;
             CameraMove.OnCameraMove -= ControllerManager_OnKeyDown;
         }
-
 
         public void ResetHud() {
             for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {

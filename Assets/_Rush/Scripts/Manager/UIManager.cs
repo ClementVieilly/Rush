@@ -40,7 +40,7 @@ namespace Com.IsartDigital.Rush.Manager
         private void LevelSelector_OnChooseLevel(int level) {
             levelSelector.gameObject.SetActive(false);
             hud.gameObject.SetActive(true);
-            gameManager.Init();
+            gameManager.Init(level);
 
         }
 
@@ -62,6 +62,7 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void DisplayWin() {
+            ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
             WinScreen.SetActive(true); 
         }
 

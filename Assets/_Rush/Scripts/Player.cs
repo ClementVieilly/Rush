@@ -38,8 +38,10 @@ namespace Com.IsartDigital.Rush
             preview = Instantiate(previewPrefab);
         }
         public void Init() {
+            SetActiveFalseAllPreview(); 
             allListEmpty = false; 
-            index = inventory.Count - 1; 
+            index = inventory.Count - 1;
+            Debug.Log(inventory[index].TilesList[0]); 
             currentTile = inventory[index].TilesList[0];
             SetModeNormal();
           
@@ -93,7 +95,7 @@ namespace Com.IsartDigital.Rush
                 currentTile.gameObject.GetComponent<ObjectsInstanciateScript>().Init();  
                 currentTile.transform.GetChild(0).gameObject.layer = 0;
                 inventory[index].TilesList.RemoveAt(0);
-                //Debug.Log(inventory[index].TilesList.Count); 
+                 
                 SetActiveFalseAllPreview();
                 OnUpdateInventory?.Invoke(inventory[index].TilesList.Count); 
                 if(inventory[index].TilesList.Count == 0) {
@@ -127,9 +129,7 @@ namespace Com.IsartDigital.Rush
             currentTile = inventory[index].TilesList[0];
             for(int i = preview.transform.childCount - 1; i >= 0; i--) {
                 if(currentTile.CompareTag(preview.transform.GetChild(i).tag)) {
-                    
                     preview.transform.GetChild(i).gameObject.SetActive(true);
-                    
                     break;
                 }
           
@@ -157,8 +157,6 @@ namespace Com.IsartDigital.Rush
                     return true;
                 }
 
-
-                
             }
 
             return false; 

@@ -8,25 +8,27 @@ using UnityEngine;
 
 namespace Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate
 {
-   public class ObjectsInstanciateScript : GameObjects
+   public class ObjectsInstanciateScript : MonoBehaviour
     {
-        protected static List<ObjectsInstanciateScript> list = new List<ObjectsInstanciateScript>(); 
+        private static List<ObjectsInstanciateScript> list = new List<ObjectsInstanciateScript>(); 
 
         public static void RemoveAll() {
             for(int i = list.Count - 1; i >= 0; i--) {
                 list[i].Destroy(); 
             }
         }
-       override public void Init() {
-            base.Init(); 
+      virtual  public void Init() {
+         
             list.Add(this);
        }
 
        
 
       virtual  public void Destroy() {
+            
             list.RemoveAt(list.IndexOf(this));
             Destroy(gameObject);
+            
         }
 
     }
