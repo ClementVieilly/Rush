@@ -12,7 +12,7 @@ namespace Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStar
         private static List<ObjectsOnLevelAtStartScript> list = new List<ObjectsOnLevelAtStartScript>(); 
         public static void InitAllGameObjectAtLevelAtStart() {
             for(int i = list.Count - 1; i >= 0; i--) {
-                Debug.Log(list[i]); 
+                
                 list[i].Init(); 
             }
         }

@@ -14,7 +14,8 @@ namespace Com.IsartDigital.Rush.Manager
     {
         [SerializeField] private Menu menu;
         [SerializeField] private LevelSelector levelSelector;
-        [SerializeField] private Hud hud;
+        [SerializeField] private Hud hudReflexion;
+        [SerializeField] private GameObject hudAction;
         [SerializeField] private Pause pause;
         [SerializeField] private GameObject WinScreen;
         [SerializeField] private GameManager gameManager;
@@ -38,7 +39,7 @@ namespace Com.IsartDigital.Rush.Manager
 
         private void LevelSelector_OnChooseLevel(int level) {
             levelSelector.gameObject.SetActive(false);
-            hud.gameObject.SetActive(true);
+            hudReflexion.gameObject.SetActive(true);
             gameManager.Init(level);
             ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
         }
@@ -56,27 +57,27 @@ namespace Com.IsartDigital.Rush.Manager
             else WinScreen.SetActive(false);
             gameManager.DestroyLevel();
             levelSelector.gameObject.SetActive(true);
-            hud.gameObject.SetActive(false);
-            hud.ResetHud();
+            hudReflexion.gameObject.SetActive(false);
+            hudReflexion.ResetHud();
 
         }
 
         public void DisplayWin() {
             ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
+            hudAction.SetActive(false); 
             WinScreen.SetActive(true); 
         }
 
         public void ResetLevel() {
             pause.gameObject.SetActive(false);
             gameManager.ResetLevel();
-            hud.ResetHud(); 
-            hud.Init(); 
+            hudReflexion.ResetHud(); 
+            hudReflexion.Init(); 
         }
         private void OnDestroy() {
             Menu.OnClickOnMenu -= Menu_OnClickOnMenu;
             LevelSelector.OnChooseLevel -= LevelSelector_OnChooseLevel;
             ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
-
         }
 
 

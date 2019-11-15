@@ -23,7 +23,8 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] protected TimeManager timeManager;
         [SerializeField] private UIManager UIManager;
         [SerializeField] private GameObject level;
-        [SerializeField] private Hud hud;
+        [SerializeField] private Hud hudReflexion;
+        [SerializeField] private GameObject hudAction;
         [SerializeField] private List<GameObject> levelList = new List<GameObject>();
         [SerializeField] private CameraMove cameraMove; 
 
@@ -36,11 +37,7 @@ namespace Com.IsartDigital.Rush.Manager
             
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
-            ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
-            //levelScript.Init();
-            // CreateLevel();
-            // player.Init();
-            // hud.Init();
+            //ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
         public void SetPlay() {
@@ -63,24 +60,29 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript.Init();
             CreateLevel();
             player.Init();
-            hud.Init();
+            hudReflexion.Init();
             cameraMove.SetModeNormal(); 
         }
 
-        private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
+       /* private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
             if(actionPhase && !onPause) {
                 timeManager.SetModeVoid();
                 ReorganiseLevel();
-                hud.gameObject.SetActive(true);
-
+                hudReflexion.gameObject.SetActive(true);
             }
+        }*/
+        public void SwitchPhase() {
+            timeManager.SetModeVoid();
+            ReorganiseLevel();
+            hudReflexion.gameObject.SetActive(true);
+            hudAction.SetActive(false); 
         }
-
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
             Debug.Log("défaite");
             ReorganiseLevel();
-            hud.gameObject.SetActive(true); 
+            hudReflexion.gameObject.SetActive(true);
+            hudAction.SetActive(false); 
             //Défaite 
             //Refaire tout le niveau
         }
@@ -92,10 +94,11 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
-            ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
+            //ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
             targetCounter = 0; 
             Debug.Log("Victoire");
             UIManager.DisplayWin(); 
+            
         }
 
         private void ReorganiseLevel() {
@@ -110,7 +113,8 @@ namespace Com.IsartDigital.Rush.Manager
             timeManager.SetModeNormal();
             actionPhase = true;
             player.SetModeVoid();
-            hud.gameObject.SetActive(false); 
+            hudReflexion.gameObject.SetActive(false);
+            hudAction.gameObject.SetActive(true); 
         }
 
         private void InitAllGameObjectsOnLevelAtStart() {
@@ -147,6 +151,12 @@ namespace Com.IsartDigital.Rush.Manager
             player.SetModeVoid();
             timeManager.SetModeVoid(); 
 
+        }
+
+        private void OnDestroy() {
+            CubeMove.OnLoseContext -= CubeMove_OnLoseContext;
+            Target.OnAllCubeOnTarget -= Target_OnAllCubeOnTarget;
+           // ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
         }
     }
 }
