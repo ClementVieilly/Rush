@@ -14,10 +14,11 @@ namespace Com.IsartDigital.Rush {
 
         public static event CameraMoveEventHandler OnCameraMove; 
         [SerializeField, Range(0, 20)] private float radius;
+        [SerializeField] private  GameManager gameManager; 
         private float horizontalAngle = 3;
         private float verticalAngle = 3;
         private Vector3 newDirection;
-        [SerializeField] private Transform cameraPivot;
+        private Transform cameraPivot;
         [SerializeField, Range(0.5f, 2f)] private float speed;
 
         private string vertical = "Vertical";
@@ -31,7 +32,7 @@ namespace Com.IsartDigital.Rush {
             ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held; 
             ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
             SetModeVoid();
-            
+            cameraPivot = gameManager.levelList[0].transform; 
         }
 
         private void ControllerManager_OnKeyDown(float axeX,float axeY) {

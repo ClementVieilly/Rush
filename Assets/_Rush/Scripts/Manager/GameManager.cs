@@ -25,7 +25,7 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] private GameObject level;
         [SerializeField] private Hud hudReflexion;
         [SerializeField] private GameObject hudAction;
-        [SerializeField] private List<GameObject> levelList = new List<GameObject>();
+        public List<GameObject> levelList = new List<GameObject>();
         [SerializeField] private CameraMove cameraMove; 
 
         private Level levelScript;
@@ -37,7 +37,7 @@ namespace Com.IsartDigital.Rush.Manager
             
             CubeMove.OnLoseContext += CubeMove_OnLoseContext;
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
-            //ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
+            
         }
 
         public void SetPlay() {
@@ -48,6 +48,7 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void SetPause() {
+            
             timeManager.SetModePause();
             player.SetModeVoid();
             cameraMove.SetModeVoid(); 
@@ -105,6 +106,7 @@ namespace Com.IsartDigital.Rush.Manager
             CubeMove.DestroyAll();
             Spawner.EmptySpawner();
             Target.EmptyTarget();
+            Turnstile.ResetSense(); 
             player.SetModeNormal();
             targetCounter = 0; 
         }

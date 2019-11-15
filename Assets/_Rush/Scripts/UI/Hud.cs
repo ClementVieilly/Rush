@@ -47,7 +47,7 @@ namespace Com.IsartDigital.Rush.UI {
                 lTilesContainer.GetChild(index).transform.GetChild(1).GetComponent<Image>().gameObject.SetActive(true);
                 lTilesContainer.GetChild(index).transform.GetChild(0).GetComponent<Text>().text = lInventory.TilesList.Count.ToString();
                 tiles.transform.localScale = new Vector3(80, 80, 80);
-                tiles.transform.rotation = Quaternion.AngleAxis(90,tiles.transform.right) *  lInventory.Orientation;   
+                tiles.transform.rotation = Quaternion.AngleAxis(-90, tiles.transform.right) *  lInventory.Orientation;   
             } 
         }
 

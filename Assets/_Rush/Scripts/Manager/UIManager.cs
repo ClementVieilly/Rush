@@ -24,7 +24,11 @@ namespace Com.IsartDigital.Rush.Manager
             LevelSelector.OnChooseLevel += LevelSelector_OnChooseLevel;
            
         }
-        private void ControllerManager_OnEchapDown(float axeX, float axeY) {
+        public void ControllerManager_OnEchapDown(float axeX, float axeY) {
+            SetPause(); 
+        }
+
+        public void SetPause() {
             if(!gameManager.onPause) {
                 pause.gameObject.SetActive(true);
                 gameManager.SetPause();
@@ -33,7 +37,7 @@ namespace Com.IsartDigital.Rush.Manager
 
             else {
                 pause.gameObject.SetActive(false);
-                gameManager.SetPlay(); 
+                gameManager.SetPlay();
             }
         }
 

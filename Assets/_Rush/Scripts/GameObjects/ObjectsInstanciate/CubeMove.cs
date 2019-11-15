@@ -40,7 +40,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private RaycastHit hit;
 
-        private bool testStop = false;
+       
+        private uint stopCounter = 0; 
         //Tiles tag 
         private string groundTag = "Ground";
         private string arrowTag = "Arrow";
@@ -74,7 +75,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             toRotation = transform.rotation;
             SetModeVoid();
             TimeManager.OnTick += TimeManager_OnTick;
-
+            
         }
 
         private void TimeManager_OnTick() {
@@ -90,7 +91,6 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                 if(hit.collider.CompareTag(wallTag)) {
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection));
                     SetModeVoid();
-
                     return;
                 }
 
@@ -102,10 +102,14 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private void CheckTilesCollision() {
 
-            if(testStop) {
-                testStop = false;
+            if(stopCounter == 2) {
+                stopCounter = 0;
                 SetModeMove();
                 return;
+            }
+
+            else {
+                SetModeVoid();
             }
             down = Vector3.down;
             if(Physics.Raycast(transform.position, down, out hit, rayCastDistance)) {
@@ -133,16 +137,15 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
                 if(hit.collider.CompareTag(teleportTag)) {
                     toPosition = hit.collider.gameObject.GetComponent<Teleport>().pair.transform.position + new Vector3(0, cubeSide / 2, 0);
-                    testStop = true; 
+                    stopCounter++; 
                     SetModeVoid(); 
                     
                     
                 }
                 //Il y'a mieux à faire 
                 if(hit.collider.CompareTag(stopTag)) {
-                    testStop = true;
                     SetModeVoid();
-
+                    stopCounter++; 
                 }
             }
             else {
@@ -167,7 +170,11 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private void DoActionVoid() {
 
         }
+        
 
+        protected void SetModeStop() {
+             
+        }
         private void SetDirectionTo(Vector3 vector) {
             movementDirection = vector;
             movementRotation = Quaternion.AngleAxis(90f, Vector3.Cross(Vector3.up, movementDirection));
@@ -190,8 +197,6 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private void DoActionConveyor() {
             transform.position = Vector3.Lerp(fromPosition, toPosition, ratio);
-
-
         }
 
         private void DoActionMove() {

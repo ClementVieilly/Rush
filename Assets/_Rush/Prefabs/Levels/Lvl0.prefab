@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryLevel:
-  - _tile: {fileID: 1820389188126086, guid: 16957ef68a439ee4fb120ba2ffa2519e, type: 3}
+  - _tile: {fileID: 1324669775067448, guid: c6a4f00d8e6ee94408e741323199cb71, type: 3}
     _orientation: 0
     _count: 1
 --- !u!1 &3471020248960996087
