@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2290713246698755533}
   - component: {fileID: 2290713246698755532}
   - component: {fileID: 2290713246698755535}
-  - component: {fileID: 2290713246698755534}
   - component: {fileID: 2290713246698755522}
   - component: {fileID: -3727734493300784490}
   - component: {fileID: 6679474014425289890}
@@ -297,20 +296,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!64 &2290713246698755534
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2290713246698755528}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
 --- !u!114 &2290713246698755522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9b3a50028c27c43a441e56e5990fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alias: 0
 --- !u!65 &-3727734493300784490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -331,11 +317,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2290713246698755528}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.8042577, y: 0.75724965, z: 0.81495345}
+  m_Center: {x: 0.012063235, y: -0.04838217, z: 0.06238967}
 --- !u!54 &6679474014425289890
 Rigidbody:
   m_ObjectHideFlags: 0

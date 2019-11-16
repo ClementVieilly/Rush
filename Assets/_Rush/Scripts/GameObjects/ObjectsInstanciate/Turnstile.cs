@@ -10,11 +10,11 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 	public class Turnstile : ObjectsInstanciateScript {
         private static List<Turnstile> list = new List<Turnstile>(); 
-        public int changeSense = -1;
+        public int changeSense = 1;
 
         public static void ResetSense() {
             for(int i = list.Count - 1; i >= 0; i--) {
-                list[i].changeSense = -1; 
+                list[i].changeSense = 1; 
             }
         }
         override public void Init() {

@@ -18,7 +18,9 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
         [SerializeField] private GameObject cubePrefab;
         [SerializeField] private uint spawnFrequence = 4;
         [SerializeField] private uint spawnNumber;
-        private int frequencyCounter = 1;
+        [SerializeField] private uint alias;
+        private Material color;
+        [SerializeField] private int frequencyCounter;
         private int spawnCounter = 0;
         private static List<Spawner> list = new List<Spawner>();
 
@@ -45,19 +47,21 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
             base.Init();
             list.Add(this);
             TimeManager.OnTick += TimeManager_OnTick;
+            color = transform.GetChild(0).GetComponent<Renderer>().material; 
         }
 
         private void TimeManager_OnTick() {
-
-            frequencyCounter++;
 
             if(frequencyCounter > spawnFrequence && spawnCounter < spawnNumber) {
                 frequencyCounter = 0;
                 GameObject go = Instantiate(cubePrefab, transform.position + new Vector3(0, 1f / 2, 0), transform.rotation);
                 go.GetComponent<CubeMove>().Init();
+                go.GetComponent<Renderer>().material = color;
+                go.GetComponent<CubeMove>().alias = alias; 
+               
                 spawnCounter++;
             }
-
+            frequencyCounter++;
         }
         private void OnDestroy() {
             base.Destroy();

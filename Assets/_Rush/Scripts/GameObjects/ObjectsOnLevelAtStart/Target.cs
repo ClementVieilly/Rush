@@ -17,7 +17,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         public static event TargetEventHandler OnAllCubeOnTarget; 
         private RaycastHit hit;
         private uint cubeCounter = 0;
-        [SerializeField] private uint winNumber = 5;
+        [SerializeField] private uint winNumber; 
+        [SerializeField] private uint alias;
         public static List<Target> list = new List<Target>();
 
         public static void EmptyTarget() {
@@ -52,11 +53,13 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
 
         private void CheckCollisionCube() {
             if(Physics.Raycast(new Vector3(transform.position.x,transform.position.y -0.3f,transform.position.z), Vector3.up, out hit,15)) {
+              
+                if(hit.collider.gameObject.GetComponent<CubeMove>().alias != alias) return; 
                 cubeCounter++;
                 hit.collider.gameObject.GetComponent<CubeMove>().Destroy();
                 if(cubeCounter == winNumber) {
                     OnAllCubeOnTarget?.Invoke();
-                    Debug.Log("Invoke"); 
+                    
                 }
             } 
         }

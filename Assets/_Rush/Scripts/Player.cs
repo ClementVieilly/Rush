@@ -108,7 +108,7 @@ namespace Com.IsartDigital.Rush
             DoAction(); 
         }
 
-        public void CheckTabsCount() {
+        private void CheckTabsCount() {
             for(int i = inventory.Count - 1; i >= 0; i--) {
                 if(inventory[i].TilesList.Count != 0) {
                     
@@ -146,6 +146,7 @@ namespace Com.IsartDigital.Rush
                 lInventory = inventory[i];
                 if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
                     tileOnground.collider.gameObject.GetComponent<ObjectsInstanciateScript>().Destroy();
+                    
                     lInventory.TilesList.Add(lInventory.Tile);
                     CheckTabsCount();
                     index = inventory.IndexOf(lInventory);

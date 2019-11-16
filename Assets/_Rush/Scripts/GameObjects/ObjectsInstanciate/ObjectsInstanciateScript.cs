@@ -18,14 +18,13 @@ namespace Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate
             }
         }
       virtual  public void Init() {
-         
             list.Add(this);
+           
        }
 
        
 
       virtual  public void Destroy() {
-            
             list.RemoveAt(list.IndexOf(this));
             Destroy(gameObject);
             

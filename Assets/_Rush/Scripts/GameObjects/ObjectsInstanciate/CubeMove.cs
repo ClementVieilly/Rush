@@ -53,12 +53,13 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private string cubeTag = "Cube";
 
 
+        public uint alias; 
+
         public static void DestroyAll() {
             CubeMove lCube;
             for(int i = list.Count - 1; i >= 0; i--) {
                 lCube = list[i];
                 lCube.Destroy();
-                
             }
         }
        override public void Init() {
@@ -85,11 +86,12 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
 
         private void CheckForwardCollision() {
-
+           
             if(Physics.Raycast(transform.position, movementDirection, out hit, rayCastDistance)) {
-                
+                if(hit.collider.CompareTag(cubeTag)) CheckTilesCollision();
                 if(hit.collider.CompareTag(wallTag)) {
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection));
+                    
                     SetModeVoid();
                     return;
                 }
@@ -101,19 +103,19 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
 
         private void CheckTilesCollision() {
-
+           
             if(stopCounter == 2) {
                 stopCounter = 0;
                 SetModeMove();
                 return;
             }
-
+            
             else {
                 SetModeVoid();
             }
             down = Vector3.down;
             if(Physics.Raycast(transform.position, down, out hit, rayCastDistance)) {
-
+               
                 GameObject hitObject = hit.collider.gameObject;
                 if(hit.collider.CompareTag(groundTag)) {
                     SetModeMove();
@@ -130,6 +132,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                 }
 
                 if(hit.collider.CompareTag(turnstileTag)) {
+                    Debug.Log(hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
                     hit.collider.gameObject.GetComponent<Turnstile>().checkSense();
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
                     SetModeMove();
@@ -197,6 +200,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private void DoActionConveyor() {
             transform.position = Vector3.Lerp(fromPosition, toPosition, ratio);
+            
         }
 
         private void DoActionMove() {
@@ -226,8 +230,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private void CheckVoidCollision() {
             if(!Physics.Raycast(transform.position, Vector3.down, 100)) {
-                Destroy(); 
                 OnLoseContext?.Invoke();
+                
             }
         }
 
@@ -244,7 +248,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
             list.RemoveAt(list.IndexOf(this));
-            Destroy(gameObject);
+           
         }
     }
 }
