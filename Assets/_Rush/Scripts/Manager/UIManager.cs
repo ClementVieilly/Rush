@@ -45,6 +45,7 @@ namespace Com.IsartDigital.Rush.Manager
             levelSelector.gameObject.SetActive(false);
             hudReflexion.gameObject.SetActive(true);
             gameManager.Init(level);
+            hudReflexion.Init(); 
             ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
         }
 

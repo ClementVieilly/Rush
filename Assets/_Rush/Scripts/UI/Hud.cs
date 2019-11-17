@@ -16,6 +16,7 @@ namespace Com.IsartDigital.Rush.UI {
         [SerializeField] private GameObject tilesContainerContainer;
         [SerializeField] private Level level;
         [SerializeField] private Player player;
+        [SerializeField] private Button pauseButton; 
         private GameObject tiles;
         private float angle;
         private float speed = 100;
@@ -29,6 +30,13 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         public void Init() {
+
+#if UNITY_ANDROID || UNITY_IOS
+        pauseButton.gameObject.SetActive(true); 
+#else
+
+            pauseButton.gameObject.SetActive(false); 
+#endif
             CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
             Player.OnInventoryEmpty += Player_OnInventoryEmpty;
             Player.OnRecupTile += Player_OnRecupTile;

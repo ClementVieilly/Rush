@@ -9,14 +9,22 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush.Manager {
     public delegate void TimeManagerEventHandler (); 
 	public class TimeManager : MonoBehaviour {
-        [SerializeField, Range(0.1f, 5f)] private float speed = 1.2f;
+        private float _speed = 1.2f;
         private float elapsedTime = 0f;
         private float durationBetweenTicks = 1f;
         public static  float ratio = 0;
         private  bool isOnTick;
 
-        private Action doAction; 
+        private Action doAction;
+        public float Speed {
+            get {
+                return _speed;
+            }
 
+            set {
+                _speed = value; 
+            }
+        }
         //faire un getter pour le ratio
         public static event TimeManagerEventHandler OnTick;
 
@@ -57,7 +65,7 @@ namespace Com.IsartDigital.Rush.Manager {
                 OnTick?.Invoke();
                
             }
-            elapsedTime += Time.deltaTime * speed;
+            elapsedTime += Time.deltaTime * _speed;
             ratio = Mathf.Clamp01(elapsedTime / durationBetweenTicks);
         }
 

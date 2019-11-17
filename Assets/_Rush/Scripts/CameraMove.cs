@@ -27,12 +27,20 @@ namespace Com.IsartDigital.Rush {
         private Action doAction; 
 
         private void Start() {
-            radius = 14;
-            speed = 2; 
+            radius = 12;
             ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held; 
             ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
             SetModeVoid();
-            cameraPivot = gameManager.levelList[0].transform; 
+            cameraPivot = gameManager.levelList[0].transform;
+
+
+#if UNITY_ANDROID || UNITY_IOS
+            speed = 0.3f; 
+#else
+           speed = 2; 
+
+#endif
+
         }
 
         private void ControllerManager_OnKeyDown(float axeX,float axeY) {

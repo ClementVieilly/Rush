@@ -62,7 +62,7 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript.Init();
             CreateLevel();
             player.Init();
-            hudReflexion.Init();
+           
             cameraMove.SetModeNormal(); 
         }
 
@@ -83,8 +83,6 @@ namespace Com.IsartDigital.Rush.Manager
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
             loseScreen.SetActive(true); 
-           // hudReflexion.gameObject.SetActive(true);
-           // hudAction.SetActive(false);
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
@@ -94,11 +92,8 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
-            //ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
             targetCounter = 0; 
-            Debug.Log("Victoire");
             UIManager.DisplayWin(); 
-            
         }
 
         private void ReorganiseLevel() {

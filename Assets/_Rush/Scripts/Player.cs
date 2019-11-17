@@ -30,7 +30,7 @@ namespace Com.IsartDigital.Rush
         protected RaycastHit ground;
         protected RaycastHit tileOnground;
         private bool allListEmpty = false;
-
+        private uint test = 0; 
         private Action DoAction;
         private void Awake() {
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
@@ -84,8 +84,9 @@ namespace Com.IsartDigital.Rush
 
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
-            if(isVoid || !hitSomething) return;
-            if(notFree && RecupTile()) return; 
+           if(isVoid || !hitSomething) return;
+            if(notFree && RecupTile()) return;
+
 
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
@@ -102,6 +103,8 @@ namespace Com.IsartDigital.Rush
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
                 }
             }
+
+
         }
         private void Update() {
             DoAction(); 
@@ -152,7 +155,7 @@ namespace Com.IsartDigital.Rush
                     OnUpdateInventory?.Invoke(inventory[index].TilesList.Count);
                     OnRecupTile?.Invoke(index);
                     currentTile = lInventory.TilesList[0];
-                    SetActiveFalseAllPreview(); 
+                    SetActiveFalseAllPreview();
                     return true;
                 }
                 if(tileOnground.collider.CompareTag("Target") || tileOnground.collider.CompareTag("Ground")) return true; 
