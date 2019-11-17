@@ -20,7 +20,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
         [SerializeField] private uint spawnNumber;
         [SerializeField] private uint alias;
         private Material color;
-        [SerializeField] private int frequencyCounter;
+        private int frequencyCounter;
+        [SerializeField]  private int startSpwan; 
         private int spawnCounter = 0;
         private static List<Spawner> list = new List<Spawner>();
 
@@ -29,9 +30,9 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
             for(int i = list.Count - 1; i >= 0; i--) {
                 lSpawn = list[i];
                 lSpawn.spawnCounter = 0;
-                lSpawn.frequencyCounter = 0;
+                lSpawn.frequencyCounter = lSpawn.startSpwan;
             }
-
+            
 
         }
 
@@ -47,7 +48,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
             base.Init();
             list.Add(this);
             TimeManager.OnTick += TimeManager_OnTick;
-            color = transform.GetChild(0).GetComponent<Renderer>().material; 
+            color = transform.GetChild(0).GetComponent<Renderer>().material;
+            frequencyCounter = startSpwan; 
         }
 
         private void TimeManager_OnTick() {

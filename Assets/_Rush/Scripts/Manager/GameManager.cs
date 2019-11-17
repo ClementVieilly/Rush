@@ -25,6 +25,7 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] private GameObject level;
         [SerializeField] private Hud hudReflexion;
         [SerializeField] private GameObject hudAction;
+        [SerializeField] private GameObject loseScreen; 
         public List<GameObject> levelList = new List<GameObject>();
         [SerializeField] private CameraMove cameraMove; 
 
@@ -65,13 +66,14 @@ namespace Com.IsartDigital.Rush.Manager
             cameraMove.SetModeNormal(); 
         }
 
-       /* private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
-            if(actionPhase && !onPause) {
-                timeManager.SetModeVoid();
-                ReorganiseLevel();
-                hudReflexion.gameObject.SetActive(true);
-            }
-        }*/
+       private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
+            loseScreen.SetActive(false); 
+            hudReflexion.gameObject.SetActive(true);
+            hudAction.SetActive(false);
+            ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
+            
+            ReorganiseLevel();
+        }
         public void SwitchPhase() {
             timeManager.SetModeVoid();
             ReorganiseLevel();
@@ -80,16 +82,13 @@ namespace Com.IsartDigital.Rush.Manager
         }
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
-            Debug.Log("défaite");
-            ReorganiseLevel();
-            hudReflexion.gameObject.SetActive(true);
-            hudAction.SetActive(false); 
-            //Défaite 
-            //Refaire tout le niveau
+            loseScreen.SetActive(true); 
+           // hudReflexion.gameObject.SetActive(true);
+           // hudAction.SetActive(false);
+            ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
         private void Target_OnAllCubeOnTarget() {
-            // a revoir 
             targetCounter++;
             if(targetCounter == Target.list.Count) Win();
         }

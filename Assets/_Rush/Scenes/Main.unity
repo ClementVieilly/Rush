@@ -180,9 +180,11 @@ MonoBehaviour:
   level: {fileID: 7863784000848683688, guid: 7497f3022a509664cbd6c2107e3571fa, type: 3}
   hudReflexion: {fileID: 1120698784}
   hudAction: {fileID: 1668626463}
+  loseScreen: {fileID: 892162983}
   levelList:
   - {fileID: 7863784000848683688, guid: 7497f3022a509664cbd6c2107e3571fa, type: 3}
   - {fileID: 3384342353410938786, guid: 3bb641947b54c634ea8b78fca7c9b22a, type: 3}
+  - {fileID: 5497509650206606701, guid: 3756df4d9128c1c499fede7915b41e41, type: 3}
   cameraMove: {fileID: 963194229}
   player: {fileID: 1530804860}
   onPause: 0
@@ -526,6 +528,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.8
+--- !u!1 &892162983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1705655494979635917, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3778166501229619164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,11 +797,96 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5488231109191123483, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_Text
+      value: 'C''est perdu... Appuyez pour retenter ! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488231109191123483, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488231109191123483, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980794456876501402, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980794456876501402, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 484.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980794456876501402, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 96.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980794456876501402, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055871251164895758, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705655494979635917, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_Name
+      value: LoseScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705655494979635917, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3778166501693681592, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3778166501961429358, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 785180281}
+    - target: {fileID: 3778166500202833532, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1530804860}
     - target: {fileID: 3778166501693681588, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -904,11 +997,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1791265971}
-    - target: {fileID: 3778166500202833532, guid: 4a5439c2dd3bcef43beed90b689c87a1,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1530804860}
     - target: {fileID: 3778166500763185311, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1104,11 +1192,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3778166501961429358, guid: 4a5439c2dd3bcef43beed90b689c87a1,
-        type: 3}
-      propertyPath: UIManager
-      value: 
-      objectReference: {fileID: 785180281}
     - target: {fileID: 3778166499930261255, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

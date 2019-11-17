@@ -132,7 +132,6 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                 }
 
                 if(hit.collider.CompareTag(turnstileTag)) {
-                    Debug.Log(hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
                     hit.collider.gameObject.GetComponent<Turnstile>().checkSense();
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
                     SetModeMove();

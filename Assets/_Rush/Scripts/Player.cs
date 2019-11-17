@@ -75,7 +75,6 @@ namespace Com.IsartDigital.Rush
             
             if(allListEmpty) return;
             if(!notFree) {
-                
                 DisplayPreview();
             }
 

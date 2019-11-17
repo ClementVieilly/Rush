@@ -14,7 +14,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         public static void ResetSense() {
             for(int i = list.Count - 1; i >= 0; i--) {
-                list[i].changeSense = 1; 
+                list[i].changeSense = -1; 
             }
         }
         override public void Init() {
