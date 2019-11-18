@@ -69,16 +69,19 @@ namespace Com.IsartDigital.Rush.Manager
        private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
             loseScreen.SetActive(false); 
             hudReflexion.gameObject.SetActive(true);
-            hudAction.SetActive(false);
+           
             ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
-            
+            hudReflexion.GetComponent<Animator>().SetTrigger("Appear");
+            hudAction.GetComponent<Animator>().SetTrigger("Disappear");
             ReorganiseLevel();
         }
         public void SwitchPhase() {
+            //callBack du bouton Reset dans hudAction
             timeManager.SetModeVoid();
             ReorganiseLevel();
-            hudReflexion.gameObject.SetActive(true);
-            hudAction.SetActive(false); 
+            hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
+            hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
+            //hudAction.SetActive(false); 
         }
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
@@ -93,7 +96,8 @@ namespace Com.IsartDigital.Rush.Manager
 
         private void Win() {
             targetCounter = 0; 
-            UIManager.DisplayWin(); 
+            UIManager.DisplayWin();
+            hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
         }
 
         private void ReorganiseLevel() {
@@ -106,11 +110,14 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void OnGo() {
+            hudAction.gameObject.SetActive(true);
+            hudReflexion.GetComponent<Animator>().SetTrigger("Disappear"); 
+            hudAction.GetComponent<Animator>().SetTrigger("Appear"); 
             timeManager.SetModeNormal();
             actionPhase = true;
             player.SetModeVoid();
-            hudReflexion.gameObject.SetActive(false);
-            hudAction.gameObject.SetActive(true); 
+            //hudReflexion.gameObject.SetActive(false);
+           
         }
 
         private void InitAllGameObjectsOnLevelAtStart() {

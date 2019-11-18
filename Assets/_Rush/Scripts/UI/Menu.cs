@@ -13,5 +13,9 @@ namespace Com.IsartDigital.Rush.UI {
 		public void onClick() {
             OnClickOnMenu?.Invoke(); 
         }
-	}
+
+        private void OnEnable() {
+            gameObject.SetActive(true); 
+        }
+    }
 }

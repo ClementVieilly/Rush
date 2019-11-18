@@ -19,6 +19,7 @@ namespace Com.IsartDigital.Rush
         public static event PlayerEventHandler OnInventoryEmpty; 
         public static event PlayerEventHandler OnRecupTile; 
         public static event PlayerEventHandler OnUpdateInventory; 
+        public static event PlayerEventHandler OnIndexChange; 
         protected GameObject currentTile;
         public int index;
         [SerializeField] protected Camera cam;
@@ -32,6 +33,10 @@ namespace Com.IsartDigital.Rush
         private bool allListEmpty = false;
         private uint test = 0; 
         private Action DoAction;
+
+        //tag
+        private string spawnTag = "Ground"; 
+        private string targetTag = "Target"; 
         private void Awake() {
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
             SetModeVoid();
@@ -84,7 +89,7 @@ namespace Com.IsartDigital.Rush
 
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
-           if(isVoid || !hitSomething) return;
+            if(isVoid || !hitSomething) return;
             if(notFree && RecupTile()) return;
 
 
@@ -115,7 +120,7 @@ namespace Com.IsartDigital.Rush
                 if(inventory[i].TilesList.Count != 0) {
                     
                     index = i;
-                   
+                    OnIndexChange?.Invoke(index); 
                     break;
                 }
             }
@@ -135,7 +140,7 @@ namespace Com.IsartDigital.Rush
                 }
           
             }
-            
+           
             preview.SetActive(true);
             preview.transform.position = ground.collider.gameObject.transform.position + Vector3.up / 2;
             preview.transform.rotation = inventory[index].Orientation;
@@ -158,7 +163,7 @@ namespace Com.IsartDigital.Rush
                     SetActiveFalseAllPreview();
                     return true;
                 }
-                if(tileOnground.collider.CompareTag("Target") || tileOnground.collider.CompareTag("Ground")) return true; 
+                if(tileOnground.collider.CompareTag(targetTag) || tileOnground.collider.CompareTag(spawnTag)) return true; 
 
             }
 

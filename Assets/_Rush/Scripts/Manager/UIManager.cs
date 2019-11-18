@@ -44,6 +44,7 @@ namespace Com.IsartDigital.Rush.Manager
         private void LevelSelector_OnChooseLevel(int level) {
             levelSelector.gameObject.SetActive(false);
             hudReflexion.gameObject.SetActive(true);
+            hudReflexion.GetComponent<Animator>().SetTrigger("Appear"); 
             gameManager.Init(level);
             hudReflexion.Init(); 
             ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
@@ -74,6 +75,7 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void ResetLevel() {
+            //ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
             pause.gameObject.SetActive(false);
             gameManager.ResetLevel();
             hudReflexion.ResetHud(); 
