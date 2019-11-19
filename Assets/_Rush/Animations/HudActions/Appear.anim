@@ -30,8 +30,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.25
+        value: 22.285736
+        inSlope: 2035.5469
+        outSlope: 2035.5469
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.2664217
+      - serializedVersion: 3
         time: 0.41666666
-        value: 110.90326
+        value: 99.303345
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -58,8 +67,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.25
+        value: -27.714212
+        inSlope: 2525.0571
+        outSlope: 2525.0571
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.22024067
+      - serializedVersion: 3
         time: 0.41666666
-        value: 60.90335
+        value: 49.303406
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -130,8 +148,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.25
+        value: 22.285736
+        inSlope: 2035.5469
+        outSlope: 2035.5469
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.2664217
+      - serializedVersion: 3
         time: 0.41666666
-        value: 110.90326
+        value: 99.303345
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -158,8 +185,17 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.25
+        value: -27.714212
+        inSlope: 2525.0571
+        outSlope: 2525.0571
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.22024067
+      - serializedVersion: 3
         time: 0.41666666
-        value: 60.90335
+        value: 49.303406
         inSlope: 0
         outSlope: 0
         tangentMode: 136

@@ -823,6 +823,13 @@ MonoBehaviour:
   tilesContainerContainer: {fileID: 3778166500833636763}
   level: {fileID: -8357483223534108342, guid: 7497f3022a509664cbd6c2107e3571fa, type: 3}
   player: {fileID: 0}
+  pauseButton: {fileID: 0}
+  anim:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3778166500212431139
 GameObject:
   m_ObjectHideFlags: 0

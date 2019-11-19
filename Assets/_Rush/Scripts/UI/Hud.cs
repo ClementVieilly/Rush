@@ -28,20 +28,23 @@ namespace Com.IsartDigital.Rush.UI {
         private Vector3 scaleOnClick = new Vector3(1.3f, 1.3f, 1.3f);
         private Vector3 scaleNormal = new Vector3(0.8f, 0.8f, 0.8f);
         private void ControllerManager_OnKeyDown(Vector3 eulerAngle) {
-            for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
-                listOfTilesTransform[i].eulerAngles = new Vector3(0,0 , eulerAngle.y ); 
+            for(int i = tilesContainerContainer.transform.childCount - 1; i >= 0; i--) {
+                
+                tilesContainerContainer.transform.GetChild(i).transform.eulerAngles = new Vector3(0,0 , eulerAngle.y ); 
             }
            
         }
-
-        public void Init() {
-
+        private void Start() {
 #if UNITY_ANDROID || UNITY_IOS
         pauseButton.gameObject.SetActive(true); 
 #else
 
-            pauseButton.gameObject.SetActive(false); 
+            pauseButton.gameObject.SetActive(false);
 #endif
+        }
+        public void Init() {
+
+
             CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
             Player.OnInventoryEmpty += Player_OnInventoryEmpty;
             Player.OnRecupTile += Player_OnRecupTile;
@@ -62,15 +65,15 @@ namespace Com.IsartDigital.Rush.UI {
                 lTilesContainer.GetChild(index).transform.GetChild(0).GetComponent<Text>().text = lInventory.TilesList.Count.ToString();
                 tiles.transform.localScale = new Vector3(75, 75, 75);
                 tiles.transform.rotation = Quaternion.AngleAxis(-90, tiles.transform.right) *  lInventory.Orientation;
-                //Tween.LocalScale(lTilesContainer.GetChild(i).transform.GetChild(2).transform, new Vector3(1.6f, 1.6f, 1.6f), 0.3f, 0.3f*i, Tween.EaseOutBack);
                 Tween.LocalScale(lTilesContainer.GetChild(i).transform.GetChild(2).transform, scaleNormal, 0.6f, 0.2f*i, anim);
 
             }
-            Tween.LocalScale(tilesContainerContainer.transform.GetChild(0).transform.GetChild(2).transform, scaleOnClick, 0.3f, 1.5f, Tween.EaseOutBack);
+            Tween.LocalScale(tilesContainerContainer.transform.GetChild(0).transform.GetChild(2).transform, scaleOnClick, 0.3f, 1f, Tween.EaseOutBack);
         }
 
         private void Player_OnIndexChange(int index) {
-            Tween.LocalScale(tilesContainerContainer.transform.GetChild(listOfTilesTransform.Count - 1 - index).transform.GetChild(2).transform, scaleOnClick, 0.2f, 0, Tween.EaseInOutBack);
+            
+           Tween.LocalScale(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).transform, scaleOnClick, 0.2f, 0, Tween.EaseInOutBack);
         }
 
         private void Player_OnUpdateInventory(int index) {
@@ -80,9 +83,10 @@ namespace Com.IsartDigital.Rush.UI {
         private void Player_OnRecupTile(int index) {
             ResetScaleHud(); 
             indexOnRecup = index;
-            Tween.LocalScale(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - indexOnRecup).transform.GetChild(2).transform, scaleOnClick, 0.3f, 0.3f, Tween.EaseInBack, Tween.LoopType.None, () => { tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - indexOnRecup).transform.GetChild(2).gameObject.SetActive(true); });
+            Tween.LocalScale(tilesContainerContainer.transform.GetChild((Player.inventory.Count - 1 )- indexOnRecup).transform.GetChild(2).transform, scaleOnClick, 0.3f, 0.3f, Tween.EaseInBack, Tween.LoopType.None, () => { tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - indexOnRecup).transform.GetChild(2).gameObject.SetActive(true); });
+            tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(true);
 
-           /* if(Player.inventory.Count - 1 - index != tilesContainerContainer.transform.childCount -1) */Tween.Value(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).GetComponent<RectTransform>().rect.height, 100, changeSlotHeightOnRecupTile, 0.2f, 0, Tween.EaseIn); //tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).GetComponent<RectTransform>().rect.height,new Vector2()
+            Tween.Value(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).GetComponent<RectTransform>().rect.height, 100, changeSlotHeightOnRecupTile, 0.1f, 0, Tween.EaseIn); 
 
         }
 
@@ -95,9 +99,12 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         private void Player_OnInventoryEmpty(int index) {
-            Tween.LocalScale(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).transform, Vector3.zero, 0.3f, 0, Tween.EaseInBack,Tween.LoopType.None, null,()=> { tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(false); });
+            Tween.LocalScale(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).transform, Vector3.zero, 0.2f, 0, Tween.EaseInBack,Tween.LoopType.None, null,()=> { tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(2).gameObject.SetActive(false); });
+            tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(false);
             indexOnEmpty = index;
-            //if(Player.inventory.Count - 1 - index != tilesContainerContainer.transform.childCount - 2) Tween.Value(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).GetComponent<RectTransform>().rect.height, -40, changeSlotHeightOnEmptyInventory, 0.2f, 0.3f,Tween.EaseIn);
+            if(index == 0 ) return;
+          
+            Tween.Value(tilesContainerContainer.transform.GetChild(Player.inventory.Count - 1 - index).GetComponent<RectTransform>().rect.height, -40, changeSlotHeightOnEmptyInventory, 0.07f, 0.3f,Tween.EaseIn);
            
         }
 
@@ -141,15 +148,24 @@ namespace Com.IsartDigital.Rush.UI {
 
             for(int i = tilesContainerContainer.transform.childCount - 1; i >= 0; i--) {
                 tilesContainerContainer.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().gameObject.SetActive(false);
+                Vector2 size = tilesContainerContainer.transform.GetChild(i).transform.GetChild(0).transform.parent.GetComponent<RectTransform>().sizeDelta;
+                size.y = 100;
+                tilesContainerContainer.transform.GetChild(i).transform.GetChild(0).transform.parent.GetComponent<RectTransform>().sizeDelta = size;
+
+
+
+
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)tilesContainerContainer.transform); 
 
-            listOfTilesTransform.Clear(); 
 
+             listOfTilesTransform.Clear();
+          
         }
 
         private void ResetScaleHud() {
             for(int i = listOfTilesTransform.Count - 1; i >= 0; i--) {
-                //if(!listOfTilesTransform[i].gameObject.activeSelf) continue; 
+               
                 Tween.LocalScale(listOfTilesTransform[i], scaleNormal, 0.2f, 0,Tween.EaseOutBack); 
             }
         }

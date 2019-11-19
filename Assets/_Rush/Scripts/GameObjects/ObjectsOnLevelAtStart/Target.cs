@@ -42,7 +42,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
         }
 
         public override void Init() {
-           // base.Init();
+          
             TimeManager.OnTick += TimeManager_OnTick;
         }
         

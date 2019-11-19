@@ -63,7 +63,7 @@ namespace Com.IsartDigital.Rush.Manager
             CreateLevel();
             player.Init();
            
-            cameraMove.SetModeNormal(); 
+            
         }
 
        private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
@@ -129,6 +129,7 @@ namespace Com.IsartDigital.Rush.Manager
             level = Instantiate(level, Vector3.zero, Quaternion.identity);
             FillPlayerTab(); 
             InitAllGameObjectsOnLevelAtStart();
+            cameraMove.SetModeZoom();
         }
 
         private void FillPlayerTab() {
@@ -139,7 +140,7 @@ namespace Com.IsartDigital.Rush.Manager
 
         public void ResetLevel() {
             onPause = false;
-            cameraMove.SetModeNormal();
+            cameraMove.SetModeZoom();
             ObjectsInstanciateScript.RemoveAll(); 
             ReorganiseLevel();
             Player.inventory.Clear(); 

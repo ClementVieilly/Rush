@@ -6,6 +6,8 @@
 using Com.IsartDigital.Assets._Rush.Scripts;
 using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
+using Pixelplacement;
+using Pixelplacement.TweenSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +32,7 @@ namespace Com.IsartDigital.Rush
         protected bool isVoid; 
         protected RaycastHit ground;
         protected RaycastHit tileOnground;
+        protected RaycastHit recupTileOnground;
         private bool allListEmpty = false;
         private uint test = 0; 
         private Action DoAction;
@@ -41,6 +44,8 @@ namespace Com.IsartDigital.Rush
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
             SetModeVoid();
             preview = Instantiate(previewPrefab);
+            SetAllPreviewAlpha(); 
+            
         }
         public void Init() {
             SetActiveFalseAllPreview(); 
@@ -82,7 +87,7 @@ namespace Com.IsartDigital.Rush
             if(!notFree) {
                 DisplayPreview();
             }
-
+            
             else preview.SetActive(false);
         }
 
@@ -94,7 +99,8 @@ namespace Com.IsartDigital.Rush
 
 
             if(inventory[index].TilesList.Count > 0) {
-                currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up / 2, inventory[index].Orientation);
+                currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up * 1.5f, inventory[index].Orientation);
+                Tween.LocalPosition(currentTile.transform, ground.collider.gameObject.transform.position + Vector3.up / 2, 0.2f, 0, Tween.EaseIn); 
                 currentTile.layer = 0;
                 currentTile.gameObject.GetComponent<ObjectsInstanciateScript>().Init();  
                 currentTile.transform.GetChild(0).gameObject.layer = 0;
@@ -112,6 +118,7 @@ namespace Com.IsartDigital.Rush
 
         }
         private void Update() {
+
             DoAction(); 
         }
 
@@ -120,6 +127,7 @@ namespace Com.IsartDigital.Rush
                 if(inventory[i].TilesList.Count != 0) {
                     
                     index = i;
+                    Debug.Log("je passe dans le check"); 
                     OnIndexChange?.Invoke(index); 
                     break;
                 }
@@ -147,20 +155,31 @@ namespace Com.IsartDigital.Rush
 
         }
 
+        private TweenBase tileScaleTween;
+
         private bool RecupTile() {
             Inventory lInventory;
             for(int i = inventory.Count - 1; i >= 0; i--) {
+
                 lInventory = inventory[i];
                 if(tileOnground.collider.CompareTag(lInventory.Tile.tag) && tileOnground.transform.rotation == lInventory.Orientation) {
-                    tileOnground.collider.gameObject.GetComponent<ObjectsInstanciateScript>().Destroy();
-                    
+
+                    recupTileOnground = tileOnground;
+                    recupTileOnground.collider.gameObject.layer = 2;
+
+
                     lInventory.TilesList.Add(lInventory.Tile);
-                    CheckTabsCount();
+                    Tween.LocalPosition(recupTileOnground.transform, recupTileOnground.transform.position + Vector3.up / 2, 0.2f, 0, Tween.EaseIn);
+                    tileScaleTween = Tween.LocalScale(recupTileOnground.transform, Vector3.zero, 0.2f, 0.2f, Tween.EaseIn, Tween.LoopType.None, null, () => { testPreview(index); }) ;
+                  
+                   
+                   // CheckTabsCount();
                     index = inventory.IndexOf(lInventory);
                     OnUpdateInventory?.Invoke(inventory[index].TilesList.Count);
-                    OnRecupTile?.Invoke(index);
+                    
                     currentTile = lInventory.TilesList[0];
                     SetActiveFalseAllPreview();
+                    
                     return true;
                 }
                 if(tileOnground.collider.CompareTag(targetTag) || tileOnground.collider.CompareTag(spawnTag)) return true; 
@@ -171,13 +190,25 @@ namespace Com.IsartDigital.Rush
             
         }
 
+       private void SetAllPreviewAlpha() {
+            for(int i = preview.transform.childCount - 1; i >= 0; i--) {
+                Color a = preview.transform.GetChild(i).transform.GetChild(0).GetComponent<MeshRenderer>().material.color;
+                a.a = 0.4f;
+                preview.transform.GetChild(i).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = a;
+                
+            }
+        }
+
         public void SetActiveFalseAllPreview() {
             for(int i = preview.transform.childCount - 1; i >= 0; i--) {
                 preview.transform.GetChild(i).gameObject.SetActive(false); 
             }
         }
 
-
+        private void testPreview(int index) {
+            recupTileOnground.collider.gameObject.GetComponent<ObjectsInstanciateScript>().Destroy();
+            OnRecupTile?.Invoke(index);
+        }
         
     }
 }

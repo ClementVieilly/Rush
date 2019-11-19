@@ -19,11 +19,21 @@ namespace Com.IsartDigital.Rush.Manager
         [SerializeField] private Pause pause;
         [SerializeField] private GameObject WinScreen;
         [SerializeField] private GameManager gameManager;
+        [SerializeField] private CameraMove cam;
+        
         private void Start() {
             Menu.OnClickOnMenu += Menu_OnClickOnMenu;
             LevelSelector.OnChooseLevel += LevelSelector_OnChooseLevel;
            
         }
+
+        private void cam_OnZoomFinish() {
+            hudReflexion.GetComponent<Animator>().SetTrigger("Appear");
+            cam.OnZoomFinish -= cam_OnZoomFinish;
+            //hudReflexion.Init();
+
+        }
+
         public void ControllerManager_OnEchapDown(float axeX, float axeY) {
             SetPause(); 
         }
@@ -42,11 +52,13 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void LevelSelector_OnChooseLevel(int level) {
+            cam.OnZoomFinish += cam_OnZoomFinish;
+
             levelSelector.gameObject.SetActive(false);
             hudReflexion.gameObject.SetActive(true);
-            hudReflexion.GetComponent<Animator>().SetTrigger("Appear"); 
+            
             gameManager.Init(level);
-            hudReflexion.Init(); 
+            
             ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
         }
 
