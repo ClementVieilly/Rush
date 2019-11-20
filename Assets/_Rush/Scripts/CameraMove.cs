@@ -103,7 +103,7 @@ namespace Com.IsartDigital.Rush {
            
             elapseTime +=  Time.deltaTime;
             ratio = anim.Evaluate(elapseTime);
-            radius = Mathf.LerpUnclamped(25, 12, ratio);
+            radius = Mathf.LerpUnclamped(25, 16, ratio);
             newDirection.x = radius * Mathf.Cos(verticalAngle) * Mathf.Cos(horizontalAngle);
             newDirection.y = radius * Mathf.Sin(verticalAngle);
             newDirection.z = radius * Mathf.Cos(verticalAngle) * Mathf.Sin(horizontalAngle);
