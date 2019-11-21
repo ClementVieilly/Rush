@@ -7,6 +7,7 @@
 using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.Manager;
+using Pixelplacement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,8 +54,10 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private string cubeTag = "Cube";
 
 
-        public uint alias; 
+        public uint alias;
 
+
+        [SerializeField] private AnimationCurve moveAnim; 
         public static void DestroyAll() {
             CubeMove lCube;
             for(int i = list.Count - 1; i >= 0; i--) {
@@ -205,6 +208,14 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private void DoActionMove() {
             transform.position = Vector3.Lerp(fromPosition, toPosition, ratio) + (Vector3.up * (rotationOffsetY * Mathf.Sin(Mathf.PI * ratio)));
             transform.rotation = Quaternion.Lerp(fromRotation, toRotation, ratio);
+            
+            if(ratio >= 0.9f) {
+                Debug.Log("je tween");
+                transform.rotation = Quaternion.identity;
+                Tween.LocalScale(transform, new Vector3(0.3f, 0.3f, 0.3f), 0.5f / TimeManager.Speed, 0, Tween.EaseInOutBack); ;
+                Tween.LocalScale(transform, Vector3.one *0.8f, 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInOutBack);
+            }
+           
         }
 
         private void SetModeFall() {
