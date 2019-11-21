@@ -186,6 +186,7 @@ MonoBehaviour:
   - {fileID: 3384342353410938786, guid: 3bb641947b54c634ea8b78fca7c9b22a, type: 3}
   - {fileID: 5497509650206606701, guid: 3756df4d9128c1c499fede7915b41e41, type: 3}
   - {fileID: 6422928857646445552, guid: d2ab0e85276760c4abf2fe7f920ef2cd, type: 3}
+  - {fileID: 7444079666704101280, guid: 8273562ad627a7a4dae5880f53dfb1f9, type: 3}
   cameraMove: {fileID: 963194229}
   player: {fileID: 1530804860}
   onPause: 0
