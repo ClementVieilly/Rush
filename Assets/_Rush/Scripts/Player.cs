@@ -76,7 +76,8 @@ namespace Com.IsartDigital.Rush
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             hitSomething = Physics.Raycast(ray, out ground, 30);
 
-            if(!hitSomething) {
+            if(!hitSomething || ground.collider.CompareTag("Wall")|| ground.collider.CompareTag(targetTag)) {
+                
                 preview.SetActive(false);
                 return;
             }
@@ -85,6 +86,7 @@ namespace Com.IsartDigital.Rush
             
             if(allListEmpty) return;
             if(!notFree) {
+                
                 DisplayPreview();
             }
             
@@ -94,9 +96,9 @@ namespace Com.IsartDigital.Rush
 
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
 
-            if(isVoid || !hitSomething) return;
+            if(isVoid || !hitSomething || ground.collider.CompareTag("Wall")) return;
             if(notFree && RecupTile()) return;
-
+            
 
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up * 1.5f, inventory[index].Orientation);
@@ -109,8 +111,10 @@ namespace Com.IsartDigital.Rush
                 SetActiveFalseAllPreview();
                 OnUpdateInventory?.Invoke(inventory[index].TilesList.Count); 
                 if(inventory[index].TilesList.Count == 0) {
+                   
                     OnInventoryEmpty?.Invoke(index);
                     CheckTabsCount();
+                   
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
                 }
             }
@@ -125,16 +129,14 @@ namespace Com.IsartDigital.Rush
         private void CheckTabsCount() {
             for(int i = inventory.Count - 1; i >= 0; i--) {
                 if(inventory[i].TilesList.Count != 0) {
-                    
                     index = i;
-                    Debug.Log("je passe dans le check"); 
                     OnIndexChange?.Invoke(index); 
                     break;
                 }
             }
             if(inventory[index].TilesList.Count == 0) {
                 allListEmpty = true;
-                OnInventoryEmpty?.Invoke(index);
+               // OnInventoryEmpty?.Invoke(index);
             }
             else allListEmpty = false; 
         }
@@ -176,13 +178,14 @@ namespace Com.IsartDigital.Rush
                    // CheckTabsCount();
                     index = inventory.IndexOf(lInventory);
                     OnUpdateInventory?.Invoke(inventory[index].TilesList.Count);
+                    OnIndexChange?.Invoke(index); 
                     
                     currentTile = lInventory.TilesList[0];
                     SetActiveFalseAllPreview();
-                    
+                    if(allListEmpty)  allListEmpty = false; 
                     return true;
                 }
-                if(tileOnground.collider.CompareTag(targetTag) || tileOnground.collider.CompareTag(spawnTag)) return true; 
+                if(tileOnground.collider.CompareTag(targetTag) || tileOnground.collider.CompareTag(spawnTag)||tileOnground.collider.CompareTag("Wall") || tileOnground.collider.CompareTag("Teleport")) return true; 
 
             }
 

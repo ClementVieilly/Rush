@@ -206,14 +206,13 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
 
         private void DoActionMove() {
-            transform.position = Vector3.Lerp(fromPosition, toPosition, ratio) + (Vector3.up * (rotationOffsetY * Mathf.Sin(Mathf.PI * ratio)));
-            transform.rotation = Quaternion.Lerp(fromRotation, toRotation, ratio);
+            transform.position = Vector3.Lerp(fromPosition, toPosition, moveAnim.Evaluate(ratio)) + (Vector3.up * (rotationOffsetY * Mathf.Sin(Mathf.PI * moveAnim.Evaluate(ratio))));
+            transform.rotation = Quaternion.Lerp(fromRotation, toRotation, moveAnim.Evaluate(ratio));
             
-            if(ratio >= 0.9f) {
-                Debug.Log("je tween");
+           if(ratio >= 0.9f) {
                 transform.rotation = Quaternion.identity;
-                Tween.LocalScale(transform, new Vector3(0.3f, 0.3f, 0.3f), 0.5f / TimeManager.Speed, 0, Tween.EaseInOutBack); ;
-                Tween.LocalScale(transform, Vector3.one *0.8f, 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInOutBack);
+               // Tween.LocalScale(transform, new Vector3(0.3f, 0.3f, 0.3f), 0.5f / TimeManager.Speed, 0, Tween.EaseInOutBack); ;
+               // Tween.LocalScale(transform, Vector3.one *0.8f, 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInOutBack);
             }
            
         }

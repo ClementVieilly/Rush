@@ -36,8 +36,7 @@ namespace Com.IsartDigital.Rush {
             radius = 12;
            
             SetModeVoid();
-            cameraPivot = gameManager.levelList[0].transform;
-
+            
 
 #if UNITY_ANDROID || UNITY_IOS
             speed = 0.3f; 
@@ -93,9 +92,13 @@ namespace Com.IsartDigital.Rush {
             ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
             doAction = doActionNormal;
             elapseTime = 0;
+            
+
         }
 
         public void SetModeZoom() {
+            cameraPivot = gameManager.level.transform;
+
             doAction = DoActionZoom; 
         }
 
@@ -103,7 +106,7 @@ namespace Com.IsartDigital.Rush {
            
             elapseTime +=  Time.deltaTime;
             ratio = anim.Evaluate(elapseTime);
-            radius = Mathf.LerpUnclamped(25, 16, ratio);
+            radius = Mathf.LerpUnclamped(25, gameManager.level.GetComponent<Level>().radius, ratio);
             newDirection.x = radius * Mathf.Cos(verticalAngle) * Mathf.Cos(horizontalAngle);
             newDirection.y = radius * Mathf.Sin(verticalAngle);
             newDirection.z = radius * Mathf.Cos(verticalAngle) * Mathf.Sin(horizontalAngle);

@@ -22,7 +22,7 @@ namespace Com.IsartDigital.Rush.Manager
         public static bool stopTest = false;
         [SerializeField] protected TimeManager timeManager;
         [SerializeField] private UIManager UIManager;
-        [SerializeField] private GameObject level;
+        public GameObject level;
         [SerializeField] private Hud hudReflexion;
         [SerializeField] private GameObject hudAction;
         [SerializeField] private GameObject loseScreen; 
@@ -61,27 +61,21 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript = level.GetComponent<Level>();
             levelScript.Init();
             CreateLevel();
-            player.Init();
-           
-            
+            player.Init(); 
         }
 
        private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
-            loseScreen.SetActive(false); 
-            hudReflexion.gameObject.SetActive(true);
-           
+            SwitchPhase(); 
             ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
-            hudReflexion.GetComponent<Animator>().SetTrigger("Appear");
-            hudAction.GetComponent<Animator>().SetTrigger("Disappear");
-            ReorganiseLevel();
+
         }
         public void SwitchPhase() {
+           if(loseScreen.activeSelf) loseScreen.SetActive(false); 
             //callBack du bouton Reset dans hudAction
             timeManager.SetModeVoid();
             ReorganiseLevel();
             hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
             hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
-            //hudAction.SetActive(false); 
         }
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
@@ -114,9 +108,8 @@ namespace Com.IsartDigital.Rush.Manager
             hudReflexion.GetComponent<Animator>().SetTrigger("Disappear"); 
             hudAction.GetComponent<Animator>().SetTrigger("Appear"); 
             timeManager.SetModeNormal();
-            actionPhase = true;
+           actionPhase = true;
             player.SetModeVoid();
-            //hudReflexion.gameObject.SetActive(false);
            
         }
 
@@ -139,8 +132,9 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void ResetLevel() {
+           
             onPause = false;
-            cameraMove.SetModeZoom();
+            cameraMove.SetModeNormal(); 
             ObjectsInstanciateScript.RemoveAll(); 
             ReorganiseLevel();
             Player.inventory.Clear(); 

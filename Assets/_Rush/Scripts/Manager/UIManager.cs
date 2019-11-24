@@ -30,7 +30,7 @@ namespace Com.IsartDigital.Rush.Manager
         private void cam_OnZoomFinish() {
             hudReflexion.GetComponent<Animator>().SetTrigger("Appear");
             cam.OnZoomFinish -= cam_OnZoomFinish;
-            //hudReflexion.Init();
+            hudReflexion.SetActiveSlots(); 
 
         }
 
@@ -90,7 +90,8 @@ namespace Com.IsartDigital.Rush.Manager
             //ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
             pause.gameObject.SetActive(false);
             gameManager.ResetLevel();
-            hudReflexion.ResetHud(); 
+            hudReflexion.ResetHud();
+            hudReflexion.SetActiveSlots(); 
             hudReflexion.Init(); 
         }
         private void OnDestroy() {

@@ -9606,6 +9606,7 @@ MonoBehaviour:
   - _tile: {fileID: 1324669775067448, guid: c6a4f00d8e6ee94408e741323199cb71, type: 3}
     _orientation: -90
     _count: 1
+  radius: 15
 --- !u!1 &7996405541734424208
 GameObject:
   m_ObjectHideFlags: 0

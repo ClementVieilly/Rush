@@ -41038,6 +41038,7 @@ MonoBehaviour:
   - _tile: {fileID: 1820389188126086, guid: 16957ef68a439ee4fb120ba2ffa2519e, type: 3}
     _orientation: 180
     _count: 3
+  radius: 17
 --- !u!1 &6477915398896130035
 GameObject:
   m_ObjectHideFlags: 0
@@ -60995,7 +60996,7 @@ GameObject:
   - component: {fileID: 6581927311886103540}
   m_Layer: 0
   m_Name: Cube (157)
-  m_TagString: Ground
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -10,8 +10,8 @@ using UnityEngine;
 
 namespace Com.IsartDigital.Rush {
 	public class Level : MonoBehaviour{
-        public List<Inventory> inventoryLevel = new List<Inventory>(); 
-
+        public List<Inventory> inventoryLevel = new List<Inventory>();
+        public float radius; 
         public void Init() {
 
             Inventory lInventory;
