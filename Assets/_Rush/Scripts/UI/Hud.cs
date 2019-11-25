@@ -27,6 +27,7 @@ namespace Com.IsartDigital.Rush.UI {
         private List<Transform> listOfTilesTransform = new List<Transform>(); 
         private Vector3 scaleOnClick = new Vector3(1.3f, 1.3f, 1.3f);
         private Vector3 scaleNormal = new Vector3(0.8f, 0.8f, 0.8f);
+        private bool isInGame; 
         private void ControllerManager_OnKeyDown(Vector3 eulerAngle) {
             for(int i = tilesContainerContainer.transform.childCount - 1; i >= 0; i--) {
                 
@@ -43,8 +44,9 @@ namespace Com.IsartDigital.Rush.UI {
 #endif
         }
         public void Init() {
-
-
+            if(isInGame) return; 
+            isInGame = true; 
+            
             CameraMove.OnCameraMove += ControllerManager_OnKeyDown;
             Player.OnInventoryEmpty += Player_OnInventoryEmpty;
             Player.OnRecupTile += Player_OnRecupTile;
@@ -135,6 +137,7 @@ namespace Com.IsartDigital.Rush.UI {
         }
 
         public void ResetHud() {
+            isInGame = false; 
             CameraMove.OnCameraMove -= ControllerManager_OnKeyDown;
             Player.OnInventoryEmpty -= Player_OnInventoryEmpty;
             Player.OnRecupTile -= Player_OnRecupTile;

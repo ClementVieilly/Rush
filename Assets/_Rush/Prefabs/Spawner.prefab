@@ -62,6 +62,12 @@ MonoBehaviour:
     type: 3}
   spawnFrequence: 4
   spawnNumber: 0
+  alias: 0
+  spawnParticle: {fileID: 976840391194533727, guid: a3febe5327bfdcc46a1959d2af32d66c,
+    type: 3}
+  spawnParticleRenderer: {fileID: 8640814805386506224, guid: a3febe5327bfdcc46a1959d2af32d66c,
+    type: 3}
+  startSpwan: 0
 --- !u!1 &1451354327250352
 GameObject:
   m_ObjectHideFlags: 0

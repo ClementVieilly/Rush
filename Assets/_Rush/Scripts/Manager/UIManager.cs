@@ -82,7 +82,7 @@ namespace Com.IsartDigital.Rush.Manager
 
         public void DisplayWin() {
             ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
-            hudAction.SetActive(false); 
+           
             WinScreen.SetActive(true); 
         }
 

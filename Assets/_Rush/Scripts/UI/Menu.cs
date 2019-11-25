@@ -11,11 +11,14 @@ namespace Com.IsartDigital.Rush.UI {
 	public class Menu : MonoBehaviour {
          public static event MenuEventHandler OnClickOnMenu;
 		public void onClick() {
+            GetComponent<Animator>().SetTrigger("Disappear");
+
+        }
+        public void AnimEnd() {
             OnClickOnMenu?.Invoke(); 
         }
-
         private void OnEnable() {
-            gameObject.SetActive(true); 
+            GetComponent<Animator>().SetTrigger("Appear"); 
         }
     }
 }

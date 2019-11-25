@@ -70,16 +70,18 @@ namespace Com.IsartDigital.Rush.Manager
 
         }
         public void SwitchPhase() {
-           if(loseScreen.activeSelf) loseScreen.SetActive(false); 
+           if(loseScreen.activeSelf) loseScreen.SetActive(false);
+            hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
             //callBack du bouton Reset dans hudAction
             timeManager.SetModeVoid();
             ReorganiseLevel();
             hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
-            hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
+            Spawner.PlaySpawnParticles(); 
         }
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
-            loseScreen.SetActive(true); 
+            loseScreen.SetActive(true);
+           
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
@@ -89,6 +91,10 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
+            cameraMove.SetModeVoid();
+
+            levelScript.PlayConfetits();
+
             targetCounter = 0; 
             UIManager.DisplayWin();
             hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
@@ -104,11 +110,10 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void OnGo() {
-            hudAction.gameObject.SetActive(true);
             hudReflexion.GetComponent<Animator>().SetTrigger("Disappear"); 
             hudAction.GetComponent<Animator>().SetTrigger("Appear"); 
             timeManager.SetModeNormal();
-           actionPhase = true;
+            actionPhase = true;
             player.SetModeVoid();
            
         }

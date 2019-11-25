@@ -19,6 +19,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
         [SerializeField] private uint spawnFrequence = 4;
         [SerializeField] private uint spawnNumber;
         [SerializeField] private uint alias;
+        [SerializeField] private ParticleSystem spawnParticle;
+        [SerializeField] private ParticleSystemRenderer spawnParticleRenderer;
         private Material color;
         private int frequencyCounter;
         [SerializeField]  private int startSpwan; 
@@ -32,8 +34,11 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
                 lSpawn.spawnCounter = 0;
                 lSpawn.frequencyCounter = lSpawn.startSpwan;
             }
-            
-
+        }
+        public static void PlaySpawnParticles() {
+            for(int i = list.Count - 1; i >= 0; i--) {
+                list[i].spawnParticle.Play(); 
+            }
         }
 
         public static void InitAll() {
@@ -50,10 +55,12 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
             TimeManager.OnTick += TimeManager_OnTick;
             color = transform.GetChild(0).GetComponent<Renderer>().material;
             frequencyCounter = startSpwan; 
+            spawnParticleRenderer.material = color;
+            spawnParticle = Instantiate(spawnParticle, transform);
         }
 
         private void TimeManager_OnTick() {
-
+            spawnParticle.Stop(); 
             if(frequencyCounter > spawnFrequence && spawnCounter < spawnNumber) {
                 frequencyCounter = 0;
                 GameObject go = Instantiate(cubePrefab, transform.position + new Vector3(0, 1f / 2, 0), transform.rotation);
