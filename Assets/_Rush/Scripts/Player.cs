@@ -41,12 +41,22 @@ namespace Com.IsartDigital.Rush
         private string spawnTag = "Ground"; 
         private string targetTag = "Target"; 
         private void Awake() {
+#if UNITY_ANDROID || UNITY_IOS
+            
+            
+
+#else
             ControllerManager.OnMouse0Down += ControllerManager_OnMouse0Down;
+          
+#endif
             SetModeVoid();
             preview = Instantiate(previewPrefab);
-            SetAllPreviewAlpha(); 
-            
+            SetAllPreviewAlpha();
         }
+
+        
+        
+
         public void Init() {
             SetActiveFalseAllPreview(); 
             allListEmpty = false; 
@@ -73,7 +83,10 @@ namespace Com.IsartDigital.Rush
         }
 
         private void DoActionNormal() {
+
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+          
+
             hitSomething = Physics.Raycast(ray, out ground, 30);
 
             if(!hitSomething || ground.collider.CompareTag("Wall")|| ground.collider.CompareTag(targetTag)) {
@@ -95,35 +108,52 @@ namespace Com.IsartDigital.Rush
 
 
         private void ControllerManager_OnMouse0Down(float axeX, float axeY) {
+            DisplayTile(); 
+            
+        }
 
+        private void DisplayTile() {
+           
             if(isVoid || !hitSomething || ground.collider.CompareTag("Wall")) return;
             if(notFree && RecupTile()) return;
             
 
             if(inventory[index].TilesList.Count > 0) {
                 currentTile = Instantiate(currentTile, ground.collider.gameObject.transform.position + Vector3.up * 1.5f, inventory[index].Orientation);
-                Tween.LocalPosition(currentTile.transform, ground.collider.gameObject.transform.position + Vector3.up / 2, 0.2f, 0, Tween.EaseIn); 
+                Tween.LocalPosition(currentTile.transform, ground.collider.gameObject.transform.position + Vector3.up / 2, 0.2f, 0, Tween.EaseIn);
                 currentTile.layer = 0;
-                currentTile.gameObject.GetComponent<ObjectsInstanciateScript>().Init();  
+                currentTile.gameObject.GetComponent<ObjectsInstanciateScript>().Init();
                 currentTile.transform.GetChild(0).gameObject.layer = 0;
                 inventory[index].TilesList.RemoveAt(0);
-                 
+
                 SetActiveFalseAllPreview();
-                OnUpdateInventory?.Invoke(inventory[index].TilesList.Count); 
+                OnUpdateInventory?.Invoke(inventory[index].TilesList.Count);
                 if(inventory[index].TilesList.Count == 0) {
-                   
+
                     OnInventoryEmpty?.Invoke(index);
                     CheckTabsCount();
-                   
+
                     index = Mathf.Clamp(index, 0, inventory.Count - 1);
                 }
             }
+        }
+
+        private void TouchTest() {
+            if(Input.touchCount > 0) {
 
 
+                Touch touch = Input.GetTouch(0);
+                switch(touch.phase) {
+                    case TouchPhase.Began:
+                        DisplayTile();
+                        break;
+                }
+            }
         }
         private void Update() {
 
-            DoAction(); 
+            DoAction();
+            TouchTest(); 
         }
 
         private void CheckTabsCount() {

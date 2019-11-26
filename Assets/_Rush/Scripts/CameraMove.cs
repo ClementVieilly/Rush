@@ -39,7 +39,7 @@ namespace Com.IsartDigital.Rush {
             
 
 #if UNITY_ANDROID || UNITY_IOS
-            speed = 0.3f; 
+            speed = 0.15f; 
 #else
            speed = 2;
 

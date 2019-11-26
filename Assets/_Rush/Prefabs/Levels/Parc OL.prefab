@@ -42163,7 +42163,9 @@ MonoBehaviour:
   - _tile: {fileID: 1820389188126086, guid: 16957ef68a439ee4fb120ba2ffa2519e, type: 3}
     _orientation: 90
     _count: 1
-  radius: 13.5
+  radius: 12
+  conffetisPos: []
+  confettiBurst: {fileID: 0}
 --- !u!1 &7497947171367131809
 GameObject:
   m_ObjectHideFlags: 0
