@@ -67,6 +67,39 @@ MonoBehaviour:
     type: 3}
   spawnParticleRenderer: {fileID: 8640814805386506224, guid: a3febe5327bfdcc46a1959d2af32d66c,
     type: 3}
+  spawnAnim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30041108
+      value: 1.1862984
+      inSlope: 1.0904315
+      outSlope: 1.0904315
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   startSpwan: 0
 --- !u!1 &1451354327250352
 GameObject:

@@ -56,7 +56,9 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         public uint alias;
 
-
+        private void Start() {
+            SetModeVoid(); 
+        }
         [SerializeField] private AnimationCurve moveAnim; 
         public static void DestroyAll() {
             CubeMove lCube;
@@ -67,19 +69,19 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
        override public void Init() {
             base.Init(); 
-            list.Add(this); 
-
+            list.Add(this);
+            transform.rotation = Quaternion.identity; 
             rayCastDistance = cubeSide / 2 + rayCastOffsetDistance;
             cubeFaceDiag = Mathf.Sqrt(2) * cubeSide;
             rotationOffsetY = cubeFaceDiag / 2 - cubeSide / 2;
             //tester ici 
             movementDirection = transform.forward;
             movementRotation = Quaternion.AngleAxis(90f, transform.right);
+            
             toPosition = transform.position;
             toRotation = transform.rotation;
             SetModeVoid();
             TimeManager.OnTick += TimeManager_OnTick;
-            
         }
 
         private void TimeManager_OnTick() {
