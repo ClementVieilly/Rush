@@ -15,7 +15,12 @@ namespace Com.IsartDigital.Rush
         public float radius;
 
         public List<Transform> conffetisPos = new List<Transform>();
+        [SerializeField]  private  List<Transform> tribunesPos = new List<Transform>();
         [SerializeField] private ParticleSystem confettiBurst; 
+        [SerializeField] private GameObject tribunesPrefab;
+        [HideInInspector] public List<GameObject> tribunesList = new List<GameObject>();
+       
+       [HideInInspector] public GameObject tribunes; 
         public void Init() {
 
             Inventory lInventory;
@@ -30,7 +35,10 @@ namespace Com.IsartDigital.Rush
 
                 }
             }
-
+            for(int i = tribunesPos.Count - 1; i >= 0; i--) {
+                tribunes = Instantiate(tribunesPrefab, tribunesPos[i].transform.position - transform.position, tribunesPos[i].transform.rotation);
+                tribunesList.Add(tribunes); 
+            }
 
         }
 
@@ -40,5 +48,13 @@ namespace Com.IsartDigital.Rush
 
             }
         }
+
+        public void PlayTribunesAnim() {
+            for(int i = tribunesList.Count - 1; i >= 0; i--) {
+                tribunesList[i].GetComponent<Animator>().SetTrigger("Win"); 
+            }
+        }
+
+        
     }
 }

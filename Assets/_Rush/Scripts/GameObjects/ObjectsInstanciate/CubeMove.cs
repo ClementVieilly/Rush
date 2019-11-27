@@ -70,10 +70,11 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
        override public void Init() {
             base.Init(); 
             list.Add(this);
-            transform.rotation = Quaternion.identity; 
+            //transform.rotation = Quaternion.identity; 
             rayCastDistance = cubeSide / 2 + rayCastOffsetDistance;
             cubeFaceDiag = Mathf.Sqrt(2) * cubeSide;
-            rotationOffsetY = cubeFaceDiag / 2 - cubeSide / 2;
+            if(alias == 0) rotationOffsetY = 0.5f; 
+            else  rotationOffsetY = cubeFaceDiag / 2 - cubeSide / 2;
             //tester ici 
             movementDirection = transform.forward;
             movementRotation = Quaternion.AngleAxis(90f, transform.right);
@@ -189,7 +190,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private void InitRotation() {
             fromPosition = toPosition;
             fromRotation = toRotation;
-            toPosition = fromPosition + movementDirection;
+            toPosition = fromPosition + movementDirection ;
             toRotation = movementRotation * fromRotation;
         }
         private void SetModeMove() {
@@ -212,9 +213,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             transform.rotation = Quaternion.Lerp(fromRotation, toRotation, moveAnim.Evaluate(ratio));
             
            if(ratio >= 0.9f) {
-                transform.rotation = Quaternion.identity;
-               // Tween.LocalScale(transform, new Vector3(0.3f, 0.3f, 0.3f), 0.5f / TimeManager.Speed, 0, Tween.EaseInOutBack); ;
-               // Tween.LocalScale(transform, Vector3.one *0.8f, 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInOutBack);
+               transform.rotation = Quaternion.identity;
             }
            
         }

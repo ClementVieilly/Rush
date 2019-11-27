@@ -1920,7 +1920,7 @@ PrefabInstance:
     - target: {fileID: 5488231109191123483, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_Text
-      value: 'Le match est perdu... Appuyez pour retenter ! '
+      value: "Le match est perdu... \n"
       objectReference: {fileID: 0}
     - target: {fileID: 2292074808527411890, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}

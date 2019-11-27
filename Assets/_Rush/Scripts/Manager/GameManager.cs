@@ -94,7 +94,7 @@ namespace Com.IsartDigital.Rush.Manager
             cameraMove.SetModeVoid();
 
             levelScript.PlayConfetits();
-
+            levelScript.PlayTribunesAnim(); 
             targetCounter = 0; 
             UIManager.DisplayWin();
             hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
@@ -148,6 +148,9 @@ namespace Com.IsartDigital.Rush.Manager
             player.Init();   
         }
         public void DestroyLevel() {
+            for(int i = levelScript.tribunesList.Count - 1; i >= 0; i--) {
+                Destroy(levelScript.tribunesList[i]); 
+            }
             Destroy(level.gameObject);
             Player.inventory.Clear();
             ObjectsInstanciateScript.RemoveAll();

@@ -25,7 +25,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
         [SerializeField] private AnimationCurve spawnAnim;
         private Material color;
         private int frequencyCounter;
-        [SerializeField]  private int startSpwan; 
+        [SerializeField] private int startSpwan;
         private int spawnCounter = 0;
         private static List<Spawner> list = new List<Spawner>();
 
@@ -39,7 +39,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
         }
         public static void PlaySpawnParticles() {
             for(int i = list.Count - 1; i >= 0; i--) {
-                list[i].spawnParticle.Play(); 
+                list[i].spawnParticle.Play();
             }
         }
 
@@ -56,37 +56,48 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
             list.Add(this);
             TimeManager.OnTick += TimeManager_OnTick;
             color = transform.GetChild(0).GetComponent<Renderer>().material;
-            frequencyCounter = startSpwan; 
+            frequencyCounter = startSpwan;
             spawnParticleRenderer.material = color;
             spawnParticle = Instantiate(spawnParticle, transform);
         }
 
         private void TimeManager_OnTick() {
-            spawnParticle.Stop(); 
+            spawnParticle.Stop();
             if(frequencyCounter > spawnFrequence && spawnCounter < spawnNumber) {
                 frequencyCounter = 0;
-                GameObject go = Instantiate(cubePrefab, transform.position + new Vector3(0, 2.5f, 0) -transform.forward,transform.rotation);
-                
+                GameObject go;
+                if(alias == 0) {
+
+                    go = Instantiate(cubePrefab, transform.position + new Vector3(0, 2.5f, 0) - transform.forward, Quaternion.identity);
+                    go.transform.localScale = Vector3.zero;
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.3f / TimeManager.Speed, 0);
+
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong);
+
+                    Tween.LocalRotation(go.transform, Quaternion.AngleAxis(90f, transform.right), 0.2f / TimeManager.Speed, 0.4f / TimeManager.Speed);
+                    Tween.LocalScale(go.transform, new Vector3(0.8f, 1.2f, 0.6f), 0.2f / TimeManager.Speed, 0.6f / TimeManager.Speed, spawnAnim);
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong);
+
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.05f / TimeManager.Speed, 0.7f / TimeManager.Speed, Tween.EaseIn);
+                    Tween.LocalRotation(go.transform, transform.rotation, 0.01f / TimeManager.Speed, 1.3f / TimeManager.Speed, null, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
+                }
+                else {
+                    go = Instantiate(cubePrefab, transform.position + new Vector3(0, 2.5f, 0), transform.rotation);
+                    go.transform.localScale = Vector3.zero;
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.3f / TimeManager.Speed, 0);
+
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
+                }
+
                 go.GetComponent<Renderer>().material = color;
                 go.GetComponent<CubeMove>().alias = alias;
-                //go.GetComponent<CubeMove>().Init(); 
-                go.transform.localScale = Vector3.zero;
-
-               /* Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.3f, 0); 
-
-                Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f /2.3f, 0), 0.3f, 0.3f,Tween.EaseInStrong);
-
-                Tween.LocalRotation(go.transform,Quaternion.AngleAxis(90f, -Vector3.right), 0.2f, 0.4f); 
-                Tween.LocalScale(go.transform, new Vector3(0.8f,1.2f, 0.6f),  0.2f, 0.6f, spawnAnim);
-                Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2f, 0), 0.3f, 0.3f, Tween.EaseInStrong);
-                //go.transform.rotation = transform.rotation; 
-                Tween.LocalScale(go.transform, Vector3.one *0.8f, 0.05f, 0.7f, Tween.EaseIn);
-                Tween.LocalRotation(go.transform, transform.rotation ,0.01f,1.3f, Tween.EaseIn, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init) ;*/
 
                 spawnCounter++;
             }
             frequencyCounter++;
         }
+
+        private void TweenCallBack() { }
         private void OnDestroy() {
             base.Destroy();
             TimeManager.OnTick -= TimeManager_OnTick;
