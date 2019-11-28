@@ -76,12 +76,13 @@ namespace Com.IsartDigital.Rush.Manager
             timeManager.SetModeVoid();
             ReorganiseLevel();
             hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
+            levelScript.StopTribunesBlueAnim(); 
             Spawner.PlaySpawnParticles(); 
         }
         private void CubeMove_OnLoseContext() {
             timeManager.SetModeVoid();
             loseScreen.SetActive(true);
-           
+            levelScript.PlayTribunesBlueAnim(); 
             ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
@@ -94,7 +95,7 @@ namespace Com.IsartDigital.Rush.Manager
             cameraMove.SetModeVoid();
 
             levelScript.PlayConfetits();
-            levelScript.PlayTribunesAnim(); 
+            levelScript.PlayTribunesRedAnim(); 
             targetCounter = 0; 
             UIManager.DisplayWin();
             hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
@@ -148,8 +149,11 @@ namespace Com.IsartDigital.Rush.Manager
             player.Init();   
         }
         public void DestroyLevel() {
-            for(int i = levelScript.tribunesList.Count - 1; i >= 0; i--) {
-                Destroy(levelScript.tribunesList[i]); 
+            for(int i = levelScript.tribunesRedList.Count - 1; i >= 0; i--) {
+                Destroy(levelScript.tribunesRedList[i]); 
+            }
+            for(int i = levelScript.tribunesBlueList.Count - 1; i >= 0; i--) {
+                Destroy(levelScript.tribunesBlueList[i]); 
             }
             Destroy(level.gameObject);
             Player.inventory.Clear();

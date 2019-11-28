@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f810d3bc201c69b4d930a77b1a18ef8b, type: 2}
+  - {fileID: 2100000, guid: 00b126058a03f8945ba1438f48cf59da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -367,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f810d3bc201c69b4d930a77b1a18ef8b, type: 2}
+  - {fileID: 2100000, guid: 00b126058a03f8945ba1438f48cf59da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -675,7 +675,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f810d3bc201c69b4d930a77b1a18ef8b, type: 2}
+  - {fileID: 2100000, guid: 00b126058a03f8945ba1438f48cf59da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -935,7 +935,7 @@ GameObject:
   - component: {fileID: 4844354219033072313}
   - component: {fileID: 8253459506571629159}
   m_Layer: 0
-  m_Name: AnimSupp
+  m_Name: AnimSuppBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

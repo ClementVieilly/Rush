@@ -10,23 +10,27 @@ using UnityEngine;
 
 namespace Com.IsartDigital.Rush
 {
-    public class Level : MonoBehaviour {
+    public class Level : MonoBehaviour
+    {
         public List<Inventory> inventoryLevel = new List<Inventory>();
         public float radius;
 
         public List<Transform> conffetisPos = new List<Transform>();
-        [SerializeField]  private  List<Transform> tribunesPos = new List<Transform>();
-        [SerializeField] private ParticleSystem confettiBurst; 
-        [SerializeField] private GameObject tribunesPrefab;
-        [HideInInspector] public List<GameObject> tribunesList = new List<GameObject>();
-       
-       [HideInInspector] public GameObject tribunes; 
+        [SerializeField] private List<Transform> tribunesPos = new List<Transform>();
+        [SerializeField] private ParticleSystem confettiBurst;
+        [SerializeField] private GameObject tribunesRedPrefab;
+        [SerializeField] private GameObject tribunesBluePrefab;
+        [HideInInspector] public List<GameObject> tribunesRedList = new List<GameObject>();
+        [HideInInspector] public List<GameObject> tribunesBlueList = new List<GameObject>();
+
+        [HideInInspector] public GameObject tribunes;
         public void Init() {
 
             Inventory lInventory;
 
             // for(int i = confettiBurst.Count - 1; i >= 0; i--) confettiBurst[i].GetComponent<ParticleSystem>().Stop();
-
+            tribunesBlueList.Clear(); 
+            tribunesRedList.Clear(); 
             for(int i = inventoryLevel.Count - 1; i >= 0; i--) {
                 lInventory = inventoryLevel[i];
                 lInventory.TilesList.Clear();
@@ -36,25 +40,44 @@ namespace Com.IsartDigital.Rush
                 }
             }
             for(int i = tribunesPos.Count - 1; i >= 0; i--) {
-                tribunes = Instantiate(tribunesPrefab, tribunesPos[i].transform.position - transform.position, tribunesPos[i].transform.rotation);
-                tribunesList.Add(tribunes); 
+                if(i > 2) {
+                    tribunes = Instantiate(tribunesBluePrefab, tribunesPos[i].transform.position - transform.position, tribunesPos[i].transform.rotation);
+                    tribunesBlueList.Add(tribunes);
+                }
+                else {
+                    tribunes = Instantiate(tribunesRedPrefab, tribunesPos[i].transform.position - transform.position, tribunesPos[i].transform.rotation);
+                    tribunesRedList.Add(tribunes);
+
+                }
             }
+
+            //tribunes.GetComponent<Animator>().
 
         }
 
         public void PlayConfetits() {
             for(int i = conffetisPos.Count - 1; i >= 0; i--) {
-                 Instantiate(confettiBurst, conffetisPos[i].position - Vector3.up * 10,confettiBurst.transform.rotation );
+                Instantiate(confettiBurst, conffetisPos[i].position - Vector3.up * 10, confettiBurst.transform.rotation);
 
             }
         }
 
-        public void PlayTribunesAnim() {
-            for(int i = tribunesList.Count - 1; i >= 0; i--) {
-                tribunesList[i].GetComponent<Animator>().SetTrigger("Win"); 
+        public void PlayTribunesRedAnim() {
+            for(int i = tribunesRedList.Count - 1; i >= 0; i--) {
+                tribunesRedList[i].GetComponent<Animator>().SetTrigger("Win");
             }
         }
+        public void PlayTribunesBlueAnim() {
+            for(int i = tribunesBlueList.Count - 1; i >= 0; i--) {
+                tribunesBlueList[i].GetComponent<Animator>().SetTrigger("Win");
+            }
+        }public void StopTribunesBlueAnim() {
+            for(int i = tribunesBlueList.Count - 1; i >= 0; i--) {
+                tribunesBlueList[i].GetComponent<Animator>().SetTrigger("Stop");
+            }
+        }
+       
 
-        
+
     }
 }
