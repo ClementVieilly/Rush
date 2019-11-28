@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
-    public delegate void CubeMoveEventHandler();
+    public delegate void CubeMoveEventHandler(CubeMove send = null);
     public class CubeMove : ObjectsInstanciateScript
     {
         public static event CubeMoveEventHandler OnLoseContext;

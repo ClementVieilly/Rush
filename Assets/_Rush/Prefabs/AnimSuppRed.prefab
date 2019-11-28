@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3770373433005974712}
   - component: {fileID: 405800461881401081}
   - component: {fileID: 4005194147755682224}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 8141413696958930097}
   - component: {fileID: 6418743907445186595}
   - component: {fileID: 6651735829743727767}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 4276909593746090762}
   - component: {fileID: 4178515551935195702}
   - component: {fileID: 3500570803695392063}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +934,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4844354219033072313}
   - component: {fileID: 8253459506571629159}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AnimSuppRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

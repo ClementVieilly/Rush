@@ -27,13 +27,13 @@ namespace Com.IsartDigital.Rush {
 
     
         private Action doAction;
-        private float elapseTime = 0; 
-        
+        private float elapseTime = 0;
+        private Vector3 cameraBasePos = new Vector3(-1, 45, 65); 
         
         private float ratio;
 
         private void Start() {
-            radius = 12;
+            //radius = 12;
            
             SetModeVoid();
             
@@ -61,8 +61,6 @@ namespace Com.IsartDigital.Rush {
         }
 
         private void Update() {
-            
-
             doAction(); 
         }
         private void doActionNormal() {
@@ -97,6 +95,9 @@ namespace Com.IsartDigital.Rush {
         }
 
         public void SetModeZoom() {
+            horizontalAngle = 1;
+            verticalAngle = 1;
+            transform.position = cameraBasePos;
             cameraPivot = gameManager.level.transform;
 
             doAction = DoActionZoom; 
@@ -106,12 +107,12 @@ namespace Com.IsartDigital.Rush {
            
             elapseTime +=  Time.deltaTime;
             ratio = anim.Evaluate(elapseTime);
-            radius = Mathf.LerpUnclamped(25, gameManager.level.GetComponent<Level>().radius, ratio);
+            radius = gameManager.level.GetComponent<Level>().radius; 
             newDirection.x = radius * Mathf.Cos(verticalAngle) * Mathf.Cos(horizontalAngle);
             newDirection.y = radius * Mathf.Sin(verticalAngle);
             newDirection.z = radius * Mathf.Cos(verticalAngle) * Mathf.Sin(horizontalAngle);
 
-            transform.position = newDirection + cameraPivot.position;
+            transform.position =Vector3.Lerp(transform.position,newDirection + cameraPivot.position,ratio);
             transform.LookAt(cameraPivot);
             if(ratio == 1) {
                 SetModeNormal();

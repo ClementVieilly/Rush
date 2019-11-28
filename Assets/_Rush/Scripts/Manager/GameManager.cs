@@ -34,9 +34,9 @@ namespace Com.IsartDigital.Rush.Manager
         private bool actionPhase;
         public bool onPause;
 
-        private void Start() {   
-            
-            CubeMove.OnLoseContext += CubeMove_OnLoseContext;
+        private void Start() {
+
+            CubeMove.OnLoseContext += CubeMove_OnLoseContext; 
             Target.OnAllCubeOnTarget += Target_OnAllCubeOnTarget;
             
         }
@@ -79,7 +79,7 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript.StopTribunesBlueAnim(); 
             Spawner.PlaySpawnParticles(); 
         }
-        private void CubeMove_OnLoseContext() {
+        private void CubeMove_OnLoseContext(CubeMove send = null) {
             timeManager.SetModeVoid();
             loseScreen.SetActive(true);
             levelScript.PlayTribunesBlueAnim(); 
@@ -92,7 +92,7 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
-            cameraMove.SetModeVoid();
+            
 
             levelScript.PlayConfetits();
             levelScript.PlayTribunesRedAnim(); 
@@ -159,7 +159,8 @@ namespace Com.IsartDigital.Rush.Manager
             Player.inventory.Clear();
             ObjectsInstanciateScript.RemoveAll();
             player.SetModeVoid();
-            timeManager.SetModeVoid(); 
+            timeManager.SetModeVoid();
+            cameraMove.SetModeVoid(); 
 
         }
 
