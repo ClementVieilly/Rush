@@ -8,13 +8,18 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush.UI {
     public delegate void LevelSelectorEventHandler(int level); 
     public class LevelSelector : MonoBehaviour {
-        public static event LevelSelectorEventHandler OnChooseLevel; 
+        public static event LevelSelectorEventHandler OnChooseLevel;
+        private int index = 0;
+
         public void TestLevel (int level) {
-            OnChooseLevel?.Invoke(level); 
+            GetComponent<Animator>().SetTrigger("Disappear"); 
+            index = level; 
         }
 
-
-
+        private void AnimEnd() {
+            OnChooseLevel?.Invoke(index);
+        }
+        
 
     }
 }

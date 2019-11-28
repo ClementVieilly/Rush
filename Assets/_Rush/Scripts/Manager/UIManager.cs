@@ -65,6 +65,7 @@ namespace Com.IsartDigital.Rush.Manager
         private void Menu_OnClickOnMenu() {
             menu.gameObject.SetActive(false);
             levelSelector.gameObject.SetActive(true);
+            levelSelector.GetComponent<Animator>().SetTrigger("Appear"); 
         }
 
         public void QuitLevel() {
