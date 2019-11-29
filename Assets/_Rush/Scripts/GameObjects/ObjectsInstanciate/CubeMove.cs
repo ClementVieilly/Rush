@@ -88,23 +88,23 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         private void TimeManager_OnTick() {
             CheckForwardCollision();
             //Regarder si y'a mieux a faire
-            //CheckTilesCollision();
+           
         }
 
         private void CheckForwardCollision() {
-           
+
             if(Physics.Raycast(transform.position, movementDirection, out hit, rayCastDistance)) {
                 if(hit.collider.CompareTag(cubeTag)) CheckTilesCollision();
                 if(hit.collider.CompareTag(wallTag)) {
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection));
-                    
+
                     SetModeVoid();
                     return;
                 }
 
             }
 
-            else CheckTilesCollision();
+            else CheckTilesCollision(); 
 
         }
 
@@ -124,7 +124,8 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                
                 GameObject hitObject = hit.collider.gameObject;
                 if(hit.collider.CompareTag(groundTag)) {
-                    SetModeMove();
+                    SetModeMove(); 
+                    
                 }
 
                 if(hit.collider.CompareTag(arrowTag)) {

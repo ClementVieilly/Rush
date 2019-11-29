@@ -77,7 +77,8 @@ namespace Com.IsartDigital.Rush.Manager
             ReorganiseLevel();
             hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
             levelScript.StopTribunesBlueAnim(); 
-            Spawner.PlaySpawnParticles(); 
+            Spawner.PlaySpawnParticles();
+            TimeManager.Speed = 1.2f; 
         }
         private void CubeMove_OnLoseContext(CubeMove send = null) {
             timeManager.SetModeVoid();
@@ -102,8 +103,8 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void ReorganiseLevel() {
-            CubeMove.DestroyAll();
             Spawner.EmptySpawner();
+            CubeMove.DestroyAll();
             Target.EmptyTarget();
             Turnstile.ResetSense(); 
             player.SetModeNormal();

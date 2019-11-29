@@ -70,23 +70,25 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
 
                     go = Instantiate(cubePrefab, transform.position + new Vector3(0, 2.5f, 0) - transform.forward, Quaternion.identity);
                     go.transform.localScale = Vector3.zero;
-                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.3f / TimeManager.Speed, 0);
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.2f / TimeManager.Speed, 0);
 
-                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong);
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.2f / TimeManager.Speed, 0.2f / TimeManager.Speed, Tween.EaseInStrong);
 
-                    Tween.LocalRotation(go.transform, Quaternion.AngleAxis(90f, transform.right), 0.2f / TimeManager.Speed, 0.4f / TimeManager.Speed);
-                    Tween.LocalScale(go.transform, new Vector3(0.8f, 1.2f, 0.6f), 0.2f / TimeManager.Speed, 0.6f / TimeManager.Speed, spawnAnim);
-                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong);
+                    Tween.LocalRotation(go.transform, Quaternion.AngleAxis(90f, transform.right), 0.15f / TimeManager.Speed, 0.4f / TimeManager.Speed);
 
-                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.05f / TimeManager.Speed, 0.7f / TimeManager.Speed, Tween.EaseIn);
-                    Tween.LocalRotation(go.transform, transform.rotation, 0.01f / TimeManager.Speed, 1.3f / TimeManager.Speed, null, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
+                    Tween.LocalScale(go.transform, new Vector3(0.8f, 1.2f, 0.6f), 0.15f / TimeManager.Speed, 0.55f / TimeManager.Speed, spawnAnim);
+
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2f, 0), 0.24f / TimeManager.Speed, 0.7f / TimeManager.Speed, Tween.EaseInStrong);
+
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.05f / TimeManager.Speed, 0.94f / TimeManager.Speed, Tween.EaseIn);
+                    Tween.LocalRotation(go.transform, transform.rotation, 0.01f / TimeManager.Speed, 0.99f / TimeManager.Speed, null, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
                 }
                 else {
                     go = Instantiate(cubePrefab, transform.position + new Vector3(0, 2.5f, 0), transform.rotation);
                     go.transform.localScale = Vector3.zero;
-                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.3f / TimeManager.Speed, 0);
+                    Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.5f / TimeManager.Speed, 0);
 
-                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.3f / TimeManager.Speed, 0.3f / TimeManager.Speed, Tween.EaseInStrong, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInStrong, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
                 }
 
                 go.GetComponent<Renderer>().material = color;
