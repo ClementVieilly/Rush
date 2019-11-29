@@ -4450,6 +4450,14 @@ MonoBehaviour:
     _orientation: 90
     _count: 2
   radius: 15
+  conffetisPos: []
+  tribunesPos: []
+  confettiBurst: {fileID: 0}
+  tribunesRedPrefab: {fileID: 0}
+  tribunesBluePrefab: {fileID: 0}
+  tribunesRedList: []
+  tribunesBlueList: []
+  tribunes: {fileID: 0}
 --- !u!1 &3660253322979701716
 GameObject:
   m_ObjectHideFlags: 0
