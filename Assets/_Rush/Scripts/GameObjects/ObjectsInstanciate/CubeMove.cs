@@ -1,5 +1,5 @@
 ///-----------------------------------------------------------------
-/// Author : Clément VIEILLY
+/// Author : Clément VIEILLY feat Max
 /// Date : 22/10/2019 10:35
 ///-----------------------------------------------------------------
 
@@ -86,25 +86,26 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         }
 
         private void TimeManager_OnTick() {
-            CheckForwardCollision();
+            //CheckForwardCollision();
+            CheckTilesCollision(); 
             //Regarder si y'a mieux a faire
            
         }
 
-        private void CheckForwardCollision() {
-
+        private bool CheckForwardCollision() {
+            
             if(Physics.Raycast(transform.position, movementDirection, out hit, rayCastDistance)) {
-                if(hit.collider.CompareTag(cubeTag)) CheckTilesCollision();
+                // if(hit.collider.CompareTag(cubeTag)) CheckTilesCollision();
                 if(hit.collider.CompareTag(wallTag)) {
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection));
-
-                    SetModeVoid();
-                    return;
+                    Debug.Log("collisionMur"); 
+                    //wallCounter++;
+                    return true;
                 }
 
             }
 
-            else CheckTilesCollision(); 
+             return false;
 
         }
 
@@ -112,25 +113,38 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
            
             if(stopCounter == 2) {
                 stopCounter = 0;
-                SetModeMove();
+                if(!CheckForwardCollision()) SetModeMove();
+
                 return;
             }
             
             else {
                 SetModeVoid();
             }
+           /*if(wallCounter == 1) {
+                wallCounter = 0;
+                SetModeMove();
+                return;
+            }
+            
+            else {
+                SetModeVoid();
+            }*/
             down = Vector3.down;
             if(Physics.Raycast(transform.position, down, out hit, rayCastDistance)) {
                
                 GameObject hitObject = hit.collider.gameObject;
                 if(hit.collider.CompareTag(groundTag)) {
-                    SetModeMove(); 
                     
+                   if(!CheckForwardCollision())SetModeMove();
+                 
+                    return; 
                 }
 
                 if(hit.collider.CompareTag(arrowTag)) {
                     SetDirectionTo(hitObject.transform.forward);
                     SetModeMove();
+                    return; 
                 }
 
                 if(hit.collider.CompareTag(conveyorTag)) {
@@ -141,7 +155,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                 if(hit.collider.CompareTag(turnstileTag)) {
                     hit.collider.gameObject.GetComponent<Turnstile>().checkSense();
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
-                    SetModeMove();
+                    SetModeMove(); 
                 }
 
                 if(hit.collider.CompareTag(teleportTag)) {
@@ -195,7 +209,12 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             toRotation = movementRotation * fromRotation;
         }
         private void SetModeMove() {
+           
             InitRotation();
+            if(CheckForwardCollision()) {
+               
+                return;
+            }
             DoAction = DoActionMove;
         }
 

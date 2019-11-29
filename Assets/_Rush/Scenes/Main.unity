@@ -112592,6 +112592,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1530804860}
+    - target: {fileID: 3778166500748648387, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3778166500154702838, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_IsActive
@@ -117816,6 +117821,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3778166500763185310, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778166500450057798, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778166500741810039, guid: 4a5439c2dd3bcef43beed90b689c87a1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778166500497461068, guid: 4a5439c2dd3bcef43beed90b689c87a1,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
