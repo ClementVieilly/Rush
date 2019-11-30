@@ -64,11 +64,6 @@ namespace Com.IsartDigital.Rush.Manager
             player.Init(); 
         }
 
-       private void ControllerManager_OnMouseDown0(float axeX, float axeY) {
-            SwitchPhase(); 
-            ControllerManager.OnMouse0Down -= ControllerManager_OnMouseDown0;
-
-        }
         public void SwitchPhase() {
            if(loseScreen.activeSelf) loseScreen.SetActive(false);
             hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
@@ -84,7 +79,6 @@ namespace Com.IsartDigital.Rush.Manager
             timeManager.SetModeVoid();
             loseScreen.SetActive(true);
             levelScript.PlayTribunesBlueAnim(); 
-            ControllerManager.OnMouse0Down += ControllerManager_OnMouseDown0;
         }
 
         private void Target_OnAllCubeOnTarget() {
@@ -93,8 +87,6 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         private void Win() {
-            
-
             levelScript.PlayConfetits();
             levelScript.PlayTribunesRedAnim(); 
             targetCounter = 0; 

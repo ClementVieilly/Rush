@@ -76,6 +76,7 @@ namespace Com.IsartDigital.Rush.Manager
             else WinScreen.SetActive(false);
             gameManager.DestroyLevel();
             levelSelector.gameObject.SetActive(true);
+            levelSelector.gameObject.GetComponent<Animator>().SetTrigger("Appear"); 
             hudReflexion.gameObject.SetActive(false);
             hudReflexion.ResetHud();
 

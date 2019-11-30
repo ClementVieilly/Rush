@@ -40,7 +40,7 @@ namespace Com.IsartDigital.Rush
                 }
             }
             for(int i = tribunesPos.Count - 1; i >= 0; i--) {
-                if(i > 2) {
+                if(i > (tribunesPos.Count - 1)/ 2) {
                     tribunes = Instantiate(tribunesBluePrefab, tribunesPos[i].transform.position - transform.position, tribunesPos[i].transform.rotation);
                     tribunesBlueList.Add(tribunes);
                 }
@@ -51,14 +51,14 @@ namespace Com.IsartDigital.Rush
                 }
             }
 
-            //tribunes.GetComponent<Animator>().
+            
 
         }
 
         public void PlayConfetits() {
             for(int i = conffetisPos.Count - 1; i >= 0; i--) {
                 Instantiate(confettiBurst, conffetisPos[i].position - Vector3.up * 10, confettiBurst.transform.rotation);
-
+                
             }
         }
 
