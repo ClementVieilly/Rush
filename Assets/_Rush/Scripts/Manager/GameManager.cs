@@ -93,7 +93,9 @@ namespace Com.IsartDigital.Rush.Manager
             UIManager.DisplayWin();
             hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
         }
-
+        public void ConffettisTestPos() {
+            levelScript.PlayConfetits();
+        }
         private void ReorganiseLevel() {
             Spawner.EmptySpawner();
             CubeMove.DestroyAll();

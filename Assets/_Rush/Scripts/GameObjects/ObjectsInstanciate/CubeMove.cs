@@ -98,8 +98,6 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
                 // if(hit.collider.CompareTag(cubeTag)) CheckTilesCollision();
                 if(hit.collider.CompareTag(wallTag)) {
                     SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection));
-                    Debug.Log("collisionMur"); 
-                    //wallCounter++;
                     return true;
                 }
 

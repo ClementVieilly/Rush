@@ -41,15 +41,19 @@ namespace Com.IsartDigital.Rush.Manager
         public void SetPause() {
             if(!gameManager.onPause) {
                 pause.gameObject.SetActive(true);
+                pause.GetComponent<Animator>().SetTrigger("Appear"); 
                 gameManager.SetPause();
 
             }
 
             else {
-                pause.gameObject.SetActive(false);
+                pause.GetComponent<Animator>().SetTrigger("Disappear");
+
                 gameManager.SetPlay();
             }
         }
+
+
 
         private void LevelSelector_OnChooseLevel(int level) {
             cam.OnZoomFinish += cam_OnZoomFinish;
@@ -86,6 +90,7 @@ namespace Com.IsartDigital.Rush.Manager
             ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
            
             WinScreen.SetActive(true); 
+            WinScreen.GetComponent<Animator>().SetTrigger("Appear"); 
         }
 
         public void ResetLevel() {

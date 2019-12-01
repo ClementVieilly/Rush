@@ -14,11 +14,10 @@ namespace Com.IsartDigital.Rush.UI {
         }
         public void OnClickOnResetButton() {
             UIManager.ResetLevel();
-            Debug.Log("Reset Level"); 
+
         }
 
         public void OnClickOnQuitButton() {
-            Debug.Log("Quit Level");
             UIManager.QuitLevel(); 
         }
     }
