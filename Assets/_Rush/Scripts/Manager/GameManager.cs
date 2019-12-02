@@ -44,6 +44,7 @@ namespace Com.IsartDigital.Rush.Manager
         public void SetPlay() {
             timeManager.SetModeReplay();
             player.SetModeNormal();
+            cameraMove.test = true; 
             cameraMove.SetModeNormal();
             onPause = false;
         }
@@ -65,7 +66,10 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void SwitchPhase() {
-           if(loseScreen.activeSelf) loseScreen.SetActive(false);
+            if(loseScreen.activeSelf) {
+                loseScreen.SetActive(false);
+                cameraMove.SetModeZoom(); 
+            }
             hudAction.gameObject.GetComponent<Animator>().SetTrigger("Disappear");
             //callBack du bouton Reset dans hudAction
             timeManager.SetModeVoid();
@@ -76,11 +80,12 @@ namespace Com.IsartDigital.Rush.Manager
             TimeManager.Speed = 1.2f;
             level.GetComponent<AudioSource>().Stop(); 
         }
-        private void CubeMove_OnLoseContext(CubeMove send = null) {
+        private void CubeMove_OnLoseContext(Transform send = null) {
             timeManager.SetModeVoid();
             loseScreen.SetActive(true);
             loseScreen.GetComponent<Animator>().SetTrigger("Appear"); 
-            levelScript.PlayTribunesBlueAnim(); 
+            levelScript.PlayTribunesBlueAnim();
+            cameraMove.SetModeLoose(send); 
         }
 
         private void Target_OnAllCubeOnTarget() {
@@ -159,8 +164,8 @@ namespace Com.IsartDigital.Rush.Manager
             ObjectsInstanciateScript.RemoveAll();
             player.SetModeVoid();
             timeManager.SetModeVoid();
-            cameraMove.SetModeVoid(); 
-
+            cameraMove.SetModeVoid();
+            cameraMove.test = true; 
         }
 
         private void OnDestroy() {

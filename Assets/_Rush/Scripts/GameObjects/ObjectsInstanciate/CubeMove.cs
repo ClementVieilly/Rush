@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
-    public delegate void CubeMoveEventHandler(CubeMove send = null);
+    public delegate void CubeMoveEventHandler(Transform send = null);
     public class CubeMove : ObjectsInstanciateScript
     {
         public static event CubeMoveEventHandler OnLoseContext;
@@ -256,14 +256,14 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
         private void CheckVoidCollision() {
             if(!Physics.Raycast(transform.position, Vector3.down, 100)) {
-                OnLoseContext?.Invoke();
+                OnLoseContext?.Invoke(transform);
                 
             }
         }
 
         private void OnTriggerEnter(Collider other) {
             if(other.CompareTag(cubeTag)) {
-                OnLoseContext?.Invoke();
+                OnLoseContext?.Invoke(transform);
 
             }
         }

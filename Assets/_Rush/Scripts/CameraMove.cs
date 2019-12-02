@@ -31,15 +31,15 @@ namespace Com.IsartDigital.Rush {
         private Vector3 cameraBasePos = new Vector3(-1, 45, 65); 
         
         private float ratio;
-
+        public bool test = false; 
         private void Start() {
             //radius = 12;
            
             SetModeVoid();
-            
+            test = true; 
 
 #if UNITY_ANDROID || UNITY_IOS
-            speed = 0.15f; 
+            speed = 0.10f; 
 #else
            speed = 2;
 
@@ -86,8 +86,12 @@ namespace Com.IsartDigital.Rush {
         }
 
         public void SetModeNormal() {
-            ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held;
-            ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
+            if(test) {
+                ControllerManager.OnMouseClick1Held += ControllerManager_OnMouseClick1Held;
+                ControllerManager.OnKeyDown += ControllerManager_OnKeyDown;
+                test = false; 
+            }
+           
             doAction = doActionNormal;
             elapseTime = 0;
             
@@ -119,8 +123,30 @@ namespace Com.IsartDigital.Rush {
                 OnZoomFinish?.Invoke(); 
             }
         }
+        public void SetModeLoose(Transform target) {
+            horizontalAngle = 1;
+            verticalAngle = 1;
+           
+            cameraPivot = target;
 
+            doAction = DoActionLoose;
+        }
+
+        private void DoActionLoose() {
+
+            elapseTime += Time.deltaTime;
+            ratio = elapseTime /7f;
+            radius = gameManager.level.GetComponent<Level>().radius;
+            newDirection.x = 10 * Mathf.Cos(verticalAngle) * Mathf.Cos(horizontalAngle);
+            newDirection.y = 10 * Mathf.Sin(verticalAngle);
+            newDirection.z = 10 * Mathf.Cos(verticalAngle) * Mathf.Sin(horizontalAngle);
+
+            transform.position = Vector3.Lerp(transform.position, newDirection + cameraPivot.position, ratio);
+            transform.LookAt(cameraPivot);
+           
+        }
         private void OnDestroy() {
+            
             ControllerManager.OnMouseClick1Held -= ControllerManager_OnMouseClick1Held;
             ControllerManager.OnKeyDown -= ControllerManager_OnKeyDown;
         }
