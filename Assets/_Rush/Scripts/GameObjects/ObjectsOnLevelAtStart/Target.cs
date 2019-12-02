@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Com.IsartDigital.Assets._Rush.Scripts.GameObjects.ObjectsOnLevelAtStart;
 using Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate;
 using Com.IsartDigital.Rush.Manager;
+using Pixelplacement;
 using UnityEngine;
 
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
@@ -56,7 +57,10 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
               
                 if(hit.collider.gameObject.GetComponent<CubeMove>().alias != alias) return; 
                 cubeCounter++;
-                hit.collider.gameObject.GetComponent<CubeMove>().Destroy();
+                hit.collider.enabled = false; 
+                hit.collider.GetComponent<CubeMove>().StopTick(); 
+                Tween.LocalPosition(hit.collider.transform, hit.collider.transform.position + Vector3.up *2 , 0.2f, 0);
+                Tween.LocalScale(hit.collider.transform, Vector3.zero, 0.4f , 0.2f , Tween.EaseIn,Tween.LoopType.None,null, hit.collider.gameObject.GetComponent<CubeMove>().Destroy); 
                 if(cubeCounter == winNumber) {
                     OnAllCubeOnTarget?.Invoke();
                     

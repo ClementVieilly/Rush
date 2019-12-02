@@ -27,6 +27,7 @@ namespace Com.IsartDigital.Rush.Manager {
         }
         //faire un getter pour le ratio
         public static event TimeManagerEventHandler OnTick;
+        public static event TimeManagerEventHandler EndTick;
 
         private void Start() {
             SetModeVoid(); 
@@ -63,6 +64,7 @@ namespace Com.IsartDigital.Rush.Manager {
             if(elapsedTime > durationBetweenTicks) {
                 elapsedTime = 0f;
                 OnTick?.Invoke();
+                EndTick?.Invoke(); 
             }
             elapsedTime += Time.deltaTime * _speed;
             ratio = Mathf.Clamp01(elapsedTime / durationBetweenTicks);

@@ -82,14 +82,13 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             toPosition = transform.position;
             toRotation = transform.rotation;
             SetModeVoid();
-            TimeManager.OnTick += TimeManager_OnTick;
+            TimeManager.EndTick += TimeManager_OnTick;
         }
 
         private void TimeManager_OnTick() {
             //CheckForwardCollision();
-            CheckTilesCollision(); 
+            CheckTilesCollision();
             //Regarder si y'a mieux a faire
-           
         }
 
         private bool CheckForwardCollision() {
@@ -152,7 +151,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
                 if(hit.collider.CompareTag(turnstileTag)) {
                     hit.collider.gameObject.GetComponent<Turnstile>().checkSense();
-                    SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
+                    SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense); 
                     SetModeMove(); 
                 }
 
@@ -183,7 +182,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             DoAction();
         }
 
-        private void SetModeVoid() {
+        public void SetModeVoid() {
             DoAction = DoActionVoid;
 
         }
@@ -270,11 +269,14 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             }
         }
        
-
+        public void StopTick() {
+            TimeManager.EndTick -= TimeManager_OnTick;
+            SetModeVoid(); 
+        }
 
         public override void Destroy() {
             base.Destroy();
-            TimeManager.OnTick -= TimeManager_OnTick;
+            //TimeManager.EndTick -= TimeManager_OnTick;
             list.RemoveAt(list.IndexOf(this));
            
         }
