@@ -10,6 +10,7 @@ using UnityEngine;
 namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
 	public class Teleport : ObjectsOnLevelAtStartScript {
         [SerializeField] public Transform pair;
+        [SerializeField] private ParticleSystem particles;
         public static List<Transform> transformList = new List<Transform>();
         public static List<Teleport> list = new List<Teleport>(); 
 
@@ -25,13 +26,17 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart {
             Teleport lTeleport;
             for(int i = 0; i < transformList.Count; i++) {
                 lTeleport = list[i];
-                lTeleport.Init(); 
+                lTeleport.Init();
+                lTeleport.InitParticle(); 
             }
         }
-       
+        private void InitParticle() {
+           
+        }
         private void Awake() {
             list.Add(this);
             transformList.Add(transform);
+            particles = Instantiate(particles, transform);
         }
         public override void Destroy() {
             list.RemoveAt(list.IndexOf(this));

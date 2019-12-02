@@ -140,7 +140,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
                 if(hit.collider.CompareTag(arrowTag)) {
                     SetDirectionTo(hitObject.transform.forward);
-                    SetModeMove();
+                    if(!CheckForwardCollision()) SetModeMove();
                     return; 
                 }
 
@@ -151,16 +151,15 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
 
                 if(hit.collider.CompareTag(turnstileTag)) {
                     hit.collider.gameObject.GetComponent<Turnstile>().checkSense();
-                    SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense); 
-                    SetModeMove(); 
+                    SetDirectionTo(Vector3.Cross(Vector3.up, movementDirection) * hit.collider.gameObject.GetComponent<Turnstile>().changeSense);
+                    if(!CheckForwardCollision()) SetModeMove();
+                    return;
                 }
 
                 if(hit.collider.CompareTag(teleportTag)) {
                     toPosition = hit.collider.gameObject.GetComponent<Teleport>().pair.transform.position + new Vector3(0, cubeSide / 2, 0);
-                    stopCounter++; 
-                    SetModeVoid(); 
-                    
-                    
+                    stopCounter++;
+                    SetModeVoid();
                 }
                 //Il y'a mieux à faire 
                 if(hit.collider.CompareTag(stopTag)) {
@@ -174,9 +173,9 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             }
 
         }
+      
 
-
-
+        
         private void Update() {
             ratio = TimeManager.ratio;
             DoAction();
@@ -272,11 +271,11 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
         public void StopTick() {
             TimeManager.EndTick -= TimeManager_OnTick;
             SetModeVoid(); 
-        }
+        } 
 
         public override void Destroy() {
             base.Destroy();
-            //TimeManager.EndTick -= TimeManager_OnTick;
+            TimeManager.EndTick -= TimeManager_OnTick;
             list.RemoveAt(list.IndexOf(this));
            
         }

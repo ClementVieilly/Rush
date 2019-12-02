@@ -48,3 +48,4 @@ FMOD/**.unsaved
 FMOD/**.cache
 FMOD/**.restore
 run.bat
+Assets/Skybox/Materials/Skybox_Sunset.mat.meta

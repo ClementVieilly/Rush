@@ -20,5 +20,9 @@ namespace Com.IsartDigital.Rush.UI {
         public void OnClickOnQuitButton() {
             UIManager.QuitLevel(); 
         }
+
+        public void SetActiveFalse() {
+            gameObject.SetActive(false); 
+        }
     }
 }

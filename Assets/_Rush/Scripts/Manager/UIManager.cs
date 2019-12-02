@@ -24,7 +24,7 @@ namespace Com.IsartDigital.Rush.Manager
         private void Start() {
             Menu.OnClickOnMenu += Menu_OnClickOnMenu;
             LevelSelector.OnChooseLevel += LevelSelector_OnChooseLevel;
-           
+            GetComponent<AudioSource>().Play(); 
         }
 
         private void cam_OnZoomFinish() {
@@ -62,7 +62,7 @@ namespace Com.IsartDigital.Rush.Manager
             hudReflexion.gameObject.SetActive(true);
             
             gameManager.Init(level);
-            
+            GetComponent<AudioSource>().volume = 0.1f; 
             ControllerManager.OnEchapDown += ControllerManager_OnEchapDown;
         }
 
@@ -88,9 +88,10 @@ namespace Com.IsartDigital.Rush.Manager
 
         public void DisplayWin() {
             ControllerManager.OnEchapDown -= ControllerManager_OnEchapDown;
-           
+            
             WinScreen.SetActive(true); 
-            WinScreen.GetComponent<Animator>().SetTrigger("Appear"); 
+            WinScreen.GetComponent<Animator>().SetTrigger("Appear");
+            WinScreen.GetComponent<AudioSource>().Play(); 
         }
 
         public void ResetLevel() {

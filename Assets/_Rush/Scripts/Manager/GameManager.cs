@@ -73,11 +73,13 @@ namespace Com.IsartDigital.Rush.Manager
             hudReflexion.gameObject.GetComponent<Animator>().SetTrigger("Appear");
             levelScript.StopTribunesBlueAnim(); 
             Spawner.PlaySpawnParticles();
-            TimeManager.Speed = 1.2f; 
+            TimeManager.Speed = 1.2f;
+            level.GetComponent<AudioSource>().Stop(); 
         }
         private void CubeMove_OnLoseContext(CubeMove send = null) {
             timeManager.SetModeVoid();
             loseScreen.SetActive(true);
+            loseScreen.GetComponent<Animator>().SetTrigger("Appear"); 
             levelScript.PlayTribunesBlueAnim(); 
         }
 
@@ -91,7 +93,8 @@ namespace Com.IsartDigital.Rush.Manager
             levelScript.PlayTribunesRedAnim(); 
             targetCounter = 0; 
             UIManager.DisplayWin();
-            hudAction.GetComponent<Animator>().SetTrigger("Disappear"); 
+            hudAction.GetComponent<Animator>().SetTrigger("Disappear");
+            GetComponent<AudioSource>().Stop();
         }
         public void ConffettisTestPos() {
             levelScript.PlayConfetits();
@@ -111,7 +114,9 @@ namespace Com.IsartDigital.Rush.Manager
             timeManager.SetModeNormal();
             actionPhase = true;
             player.SetModeVoid();
-           
+            level.GetComponent<AudioSource>().Play(); 
+            level.GetComponent<AudioSource>().volume = 0.5f;
+            GetComponent<AudioSource>().Play(); 
         }
 
         private void InitAllGameObjectsOnLevelAtStart() {
@@ -133,7 +138,6 @@ namespace Com.IsartDigital.Rush.Manager
         }
 
         public void ResetLevel() {
-           
             onPause = false;
             cameraMove.SetModeNormal(); 
             ObjectsInstanciateScript.RemoveAll(); 
