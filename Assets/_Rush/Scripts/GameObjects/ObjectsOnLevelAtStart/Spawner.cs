@@ -88,7 +88,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsOnLevelAtStart
                     go.transform.localScale = Vector3.zero;
                     Tween.LocalScale(go.transform, Vector3.one * 0.8f, 0.5f / TimeManager.Speed, 0);
 
-                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.5f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInStrong, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
+                    Tween.LocalPosition(go.transform, transform.position + new Vector3(0, 1f / 2.3f, 0), 0.3f / TimeManager.Speed, 0.5f / TimeManager.Speed, Tween.EaseInStrong, Tween.LoopType.None, null, go.GetComponent<CubeMove>().Init);
                 }
 
                 go.GetComponent<Renderer>().material = color;

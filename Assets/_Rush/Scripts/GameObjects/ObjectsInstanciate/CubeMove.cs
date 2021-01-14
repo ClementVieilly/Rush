@@ -118,15 +118,7 @@ namespace Com.IsartDigital.Rush.GameObjects.ObjectsInstanciate {
             else {
                 SetModeVoid();
             }
-           /*if(wallCounter == 1) {
-                wallCounter = 0;
-                SetModeMove();
-                return;
-            }
-            
-            else {
-                SetModeVoid();
-            }*/
+         
             down = Vector3.down;
             if(Physics.Raycast(transform.position, down, out hit, rayCastDistance)) {
                

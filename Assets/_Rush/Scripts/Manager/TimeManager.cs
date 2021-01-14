@@ -6,7 +6,8 @@
 using System;
 using UnityEngine;
 
-namespace Com.IsartDigital.Rush.Manager {
+namespace Com.DefaultCompany.MathsTP.BasicShapes { 
+
     public delegate void TimeManagerEventHandler (); 
 	public class TimeManager : MonoBehaviour {
         private static float _speed = 1.2f;
@@ -30,7 +31,7 @@ namespace Com.IsartDigital.Rush.Manager {
         public static event TimeManagerEventHandler EndTick;
 
         private void Start() {
-            SetModeVoid(); 
+            SetModeNormal(); 
         }
 
         public void SetModeVoid() {
